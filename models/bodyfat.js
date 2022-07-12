@@ -7,4 +7,7 @@ const BodyfatSchema = new Schema({
     date: String,
     leanMass: String,
     weight: String,
-})
+    classification: String
+});
+
+module.exports = mongoose.model('Bodyfat', BodyfatSchema);
