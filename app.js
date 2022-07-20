@@ -14,6 +14,7 @@ db.once("open", () => {
 
 const app = express();
 
+// Below so I can use css stylesheet in ejs file. 
 app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
