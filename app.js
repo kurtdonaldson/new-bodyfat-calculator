@@ -18,14 +18,12 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
-// app.get('/', (req, res) => {
-//     res.render('home')
-// })
 
 app.get('/', async (req, res) => {
     const clients = await Bodyfat.find({});
     res.render('home', { clients })
 })
+
 
 app.listen(3000, () => {
     console.log("LISTENING ON PORT 3000")
