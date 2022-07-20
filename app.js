@@ -14,6 +14,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
