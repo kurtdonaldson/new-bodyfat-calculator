@@ -15,13 +15,20 @@ const BodyfatSchema = new Schema({
     ]
 });
 
-//If it gets too difficult. Try this schema to start
+//Potential Schema
 // const BodyfatSchema = new Schema({
+//     client: {
 //     name: String,
-//     date: String,
-//     bodyfat: String,
-//     weight: String,
-//     leanMass: String
+//     test: [
+//         {
+//         date: String,
+//         bodyfat: String,
+//         weight: String,
+//         leanMass: String,
+//         classification: String
+//        }
+//        ]
+//     }
 // });
 
 //When looking on mongo for stored data. Will need to use db.bodyfats.find()
