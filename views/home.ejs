@@ -1,18 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Nunito:wght@300;600&family=Open+Sans:wght@400;500;700&family=Outfit:wght@700&family=Readex+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Bodyfat Calculator</title>
-</head>
-<body>
-    <h1>Bodyfat Calculator</h1>
-    <ul>
-        <% for(let client of clients){ %>
-           <li><%= client.name %> </li>
-        <% } %> 
-            
-    </ul>
-</body>
+  </head>
+  <body
+    style="
+      background-color: #e5e5e5;
+
+      font-family: 'Jost', sans-serif;
+    "
+  >
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <section
+            style="background-image: linear-gradient(90deg, #3b656d, #a1dbec)"
+          >
+            <div style="padding: 8px">
+              <h1>Skinfold Bodyfat Calculator</h1>
+            </div>
+          </section>
+        </div>
+
+        <div class="row">
+          <div class="col-6 p-0">
+            <section
+              class="m-3 me-0 rounded"
+              style="height: 340px; background-color: #a1dbec"
+            >
+              <div style="padding-top: 15px">
+                <div
+                  class="table-wrapper overflow-auto shadow p-3 mb-5 rounded"
+                  style="height: 325px; border: 5px solid white"
+                >
+                  <div class="table-title">
+                    <div class="row">
+                      <div class="col">
+                        <h2 id="customer-details"><b>Clients</b></h2>
+                      </div>
+                      <div class="col" style="padding: 0"></div>
+                    </div>
+                  </div>
+                  <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th class="col-md-8">Name</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <form action="/users" method="POST">
+                        <tr>
+                          <td>
+                            <input
+                              id="name-input"
+                              name="name"
+                              type="text"
+                              placeholder="Type new client name..."
+                              class="form-control input-lg"
+                            />
+                          </td>
+
+                          <td>
+                            <div class="col d-flex justify-content-center">
+                              <button
+                                type="submit"
+                                class="btn btn-info add-new btn-lg"
+                                id="add-new"
+                              >
+                                Create New
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </form>
+                      <!-- ejs below -->
+                      <% for(let i = 0; i < clients.length; i++) { %>
+                      <tr>
+                        <td><%= clients[i].name %></td>
+                        <td class="text-center">
+                          <button
+                            class="btn btn-primary btn-sm viewButton"
+                            data-name="<%=  clients[i].name %>"
+                          >
+                            View
+                          </button>
+
+                          <button
+                            class="btn btn-danger btn-sm deleteButton"
+                            data-name="<%=  clients[i].name %>"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+            <section
+              class="m-3 me-0 rounded shadow bg-white"
+              style="background-color: #a1dbed; height: 425px"
+            >
+              <div id="calculator-container">
+                <div
+                  id="calculator-input"
+                  style="height: 410px; border: 10px solid white;"
+                  class="rounded"
+                >
+                  <div id="calculator-inner-cont">
+                    <div
+                      id="gender-outer"
+                      class="d-flex justify-content-center"
+                    >
+                      <div
+                        id="gender-age-weight"
+                        style="width: 100%; max-height: 160px;"
+                      >
+                        <table class="table table-borderless">
+                          <thead>
+                            <tr>
+                              <th style="font-size: 18px">Client details</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="color: #3b656d; font-weight: 600">
+                                Gender
+                              </td>
+                              <td>
+                                <input
+                                  class="form-check-input fs-5"
+                                  type="radio"
+                                  name="gender"
+                                  id="female"
+                                  value="female"
+                                  style="border: 3px solid #3b656d"
+                                />
+                                <label
+                                  class="form-check-label fs-5"
+                                  for="female"
+                                  style="
+                                    padding-left: 10px;
+                                    color: #3b656d;
+                                    font-weight: 600;
+                                  "
+                                  >F</label
+                                >
+                              </td>
+                              <td>
+                                <input
+                                  class="form-check-input fs-5"
+                                  type="radio"
+                                  name="gender"
+                                  id="male"
+                                  value="male"
+                                  style="border: 3px solid #3b656d"
+                                />
+                                <label
+                                  class="form-check-label fs-5"
+                                  for="male"
+                                  style="
+                                    padding-left: 10px;
+                                    color: #3b656d;
+                                    font-weight: 600;
+                                  "
+                                  >M</label
+                                >
+                              </td>
+                              <td class="text-end">
+                                <label
+                                  for="age-input"
+                                  class="form-label"
+                                  style="color: #3b656d; font-weight: 600"
+                                  >Age</label
+                                >
+                              </td>
+
+                              <td style="width: 150px; padding-top: 5px">
+                                <div class="d-flex">
+                                  <input
+                                    id="age-input"
+                                    type="number"
+                                    name="age"
+                                    class="form-control"
+                                    placeholder="Age"
+                                    value=""
+                                    max="99"
+                                    style="border: 3px solid #3b656d"
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #3b656d; font-weight: 600">
+                                Unit (weight)
+                              </td>
+                              <td>
+                                <input
+                                  class="form-check-input fs-5"
+                                  type="radio"
+                                  name="weight"
+                                  id="kgs"
+                                  value="kgs"
+                                  style="border: 3px solid #3b656d"
+                                />
+                                <label
+                                  class="form-check-label fs-5"
+                                  for="kgs"
+                                  style="
+                                    padding-left: 10px;
+                                    color: #3b656d;
+                                    font-weight: 600;
+                                  "
+                                >
+                                  kgs
+                                </label>
+                              </td>
+                              <td>
+                                <input
+                                  class="form-check-input fs-5"
+                                  type="radio"
+                                  name="weight"
+                                  id="lbs"
+                                  value="lbs"
+                                  checked
+                                  style="border: 3px solid #3b656d"
+                                />
+                                <label
+                                  class="form-check-label fs-5"
+                                  for="lbs"
+                                  style="
+                                    padding-left: 10px;
+                                    color: #3b656d;
+                                    font-weight: 600;
+                                  "
+                                >
+                                  lbs
+                                </label>
+                              </td>
+                              <td class="text-end">
+                                <label
+                                  for="weight-input"
+                                  style="color: #3b656d; font-weight: 600"
+                                  >Weight</label
+                                >
+                              </td>
+                              <td style="padding-top: 5px">
+                                <div class="d-flex">
+                                  <input
+                                    id="weight-input"
+                                    class="form-control"
+                                    type="number"
+                                    placeholder="kg/lb"
+                                    max="500"
+                                    min="0"
+                                    value=""
+                                    style="border: 3px solid #3b656d"
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div
+                      id="measurement-outer"
+                      class="d-flex justify-content-center"
+                    >
+                      <div
+                        id="measurement-sites"
+                        style="width: 100%; height: 175px;"
+                      >
+                        <table class="table table-borderless">
+                          <thead>
+                            <tr>
+                              <th colspan="2" style="font-size: 18px">
+                                Skinfold measurements
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td
+                                class="col-md-2"
+                                style="color: #3b656d; font-weight: 600"
+                              >
+                                Suprailiac
+                              </td>
+                              <td class="col-md-4">
+                                <input
+                                  id="suprailiac-input"
+                                  type="number"
+                                  name="suprailiac"
+                                  class="form-control"
+                                  placeholder="mm"
+                                  style="border: 3px solid #3b656d"
+                                />
+                              </td>
+                              <td
+                                class="col-md-2 text-right"
+                                style="color: #3b656d; font-weight: 600"
+                              >
+                                Triceps
+                              </td>
+                              <td class="col-md-4">
+                                <input
+                                  id="triceps-input"
+                                  type="number"
+                                  name="triceps"
+                                  class="form-control"
+                                  placeholder="mm"
+                                  style="border: 3px solid #3b656d"
+                                />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                class="col-md-2"
+                                style="color: #3b656d; font-weight: 600"
+                              >
+                                Subscapularis
+                              </td>
+                              <td class="col-md-4">
+                                <input
+                                  id="subscap-input"
+                                  type="number"
+                                  name="subscapularis"
+                                  class="form-control"
+                                  placeholder="mm"
+                                  style="border: 3px solid #3b656d"
+                                />
+                              </td>
+                              <td
+                                class="col-md-2 text-right"
+                                style="color: #3b656d; font-weight: 600"
+                              >
+                                Biceps
+                              </td>
+                              <td class="col-md-4">
+                                <input
+                                  id="biceps-input"
+                                  type="number range"
+                                  class="form-control"
+                                  placeholder="mm"
+                                  name="biceps"
+                                  style="border: 3px solid #3b656d"
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div
+                      id="calculate-button-div"
+                      style="width: 100%"
+                      class="text-center"
+                    >
+                      <button id="calculate-btn" type="button" class="btn">
+                        Calculate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="col-6 p-0" style="height: 800px">
+            <section
+              class="m-3 rounded shadow bg-white"
+              style="background-color: #a1dbed; height: 300px"
+            >
+              <div style="padding-top: 15px">
+                <div
+                  class="table-wrapper overflow-auto rounded"
+                  style="height: 285px"
+                >
+                  <div class="table-title">
+                    <div class="row">
+                      <div class="col">
+                        <h2 id="clientName"><b>No client selected</b></h2>
+                      </div>
+                      <div class="col" style="padding: 0; width: 600px"></div>
+                      <div class="col">
+                        <div class="d-flex justify-content-end"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <table
+                    class="table table-striped table-hover table-borderless"
+                  >
+                    <thead>
+                      <tr style="background-color: #a1dbed">
+                        <th style="width: 100px; border-radius: 7px 0 0 7px">
+                          Date
+                        </th>
+                        <th style="width: 80px">Classification</th>
+                        <th style="width: 100px">Bodyfat</th>
+                        <th style="text-align: right">Lean Mass</th>
+
+                        <th
+                          style="text-align: right; border-radius: 0 7px 7px 0"
+                        >
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id="today-date"></td>
+                        <td id="classification-populate"></td>
+                        <td id="bodyfat-populate"></td>
+                        <td id="leanmass-populate"></td>
+
+                        <td>
+                          <button
+                            id="save-button"
+                            type="button"
+                            class="btn btn-success"
+                            style="
+                              padding: 0px 10px 10px 10px;
+                              margin-left: 20px;
+                            "
+                          >
+                            Save
+                          </button>
+                        </td>
+                      </tr>
+
+                      <% for(let i = 0; i < clients.length; i++) { %> <%
+                      if(clients[i].test){%> <% for(let j = 0; j <
+                      clients[i].test.length; j++) { %>
+                      <tr class="clientRow">
+                        <td
+                          colspan="5"
+                          class="clientYES"
+                          style="display: none; width: 100%"
+                        >
+                          <div
+                            style="
+                              display: flex;
+                              justify-content: space-between;
+                            "
+                          >
+                            <div style="display: none"><%=clients[i].name%></div>
+                            <div style="width: 60px">
+                              <%=clients[i].test[j].date%>
+                            </div>
+                            <div style="width: 50px">
+                              <%=clients[i].test[j].classification%>
+                            </div>
+                            <div><%=clients[i].test[j].bodyfat%></div>
+                            <div style="width: 70px">
+                              <%=clients[i].test[j].leanMass%>
+                            </div>
+                            <div style="width: 70px"></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <% } %> <% } %> <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="m-3 rounded shadow bg-white">
+              <div
+                style="background-color: #a1dbed; height: 150px"
+                class="rounded"
+              >
+                <div id="results-outer" style="padding-top: 15px">
+                  <div
+                    id="results"
+                    style="
+                      background-color: white;
+                      height: 135px;
+                      padding: 15px;
+                    "
+                    class="rounded"
+                  >
+                    <h2 id="results-heading">Results</h2>
+                    <table class="table-borderless">
+                      <thead>
+                        <tr>
+                          <th class="col-md-4">Bodyfat%</th>
+                          <th class="col-md-4">Lean mass</th>
+                          <th class="col-md-4">Classification</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <input
+                              id="bodyfat-input"
+                              type="text"
+                              value=""
+                              class="form-control"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id="lean-mass-input"
+                              type="text"
+                              value=""
+                              class="form-control"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id="classification-input"
+                              type="text"
+                              class="form-control"
+                              value=""
+                            />
+                          </td>
+                          <td>
+                            <button id="reset-btn" type="button" class="btn">
+                              Reset
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section
+              class="m-3 rounded shadow p-2 mb-5"
+              style="background-color: white; height: 300px"
+            >
+              <div id="table-outer">
+                <div id="table">
+                  <table class="table table-striped table-borderless">
+                    <tr style="background-color: #a1dbed">
+                      <td class="fw-bold" style="border-radius: 7px 0 0 7px">
+                        Classification
+                      </td>
+                      <td class="fw-bold">Female</td>
+                      <td class="fw-bold" style="border-radius: 0 7px 7px 0">
+                        Male
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Essential Fat</td>
+                      <td>10-12%</td>
+                      <td>2-4%</td>
+                    </tr>
+                    <tr>
+                      <td>Athletes</td>
+                      <td>14-20%</td>
+                      <td>6-13%</td>
+                    </tr>
+                    <tr>
+                      <td>Fitness</td>
+                      <td>21-24%</td>
+                      <td>14-17%</td>
+                    </tr>
+                    <tr>
+                      <td>Acceptable</td>
+                      <td>25-31%</td>
+                      <td>18-25%</td>
+                    </tr>
+                    <tr>
+                      <td>Obese</td>
+                      <td>32% plus</td>
+                      <td>25% plus</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="row">
+          <footer
+            style="background-color: #a1dbed; height: 60px; font-size: 12px"
+            class="text-center"
+          >
+            <p class="mt-3">
+              Durnin, J. V. G. A., & Womersley, J. (1974). Body Fat Assessed
+              from Total Body Density and Its Estimation from Skinfold
+              Thickness: Measurements on 481 Men and Women Aged from 16 to 72
+              Years. British Journal of Nutrition, 32, 77-97.
+              https://doi.org/10.1079/BJN19740060
+            </p>
+          </footer>
+        </div>
+      </div>
+    </main>
+    <script
+      src="https://kit.fontawesome.com/00b9ece392.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="calculator.js"></script>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
