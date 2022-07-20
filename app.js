@@ -18,12 +18,13 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
-app.get('/', (req, res) =>{
-    res.render('home')
-})
+// app.get('/', (req, res) => {
+//     res.render('home')
+// })
 
-app.get('/bodyfat', async (req, res) =>{
-    const bodyfat = await Bodyfat.find({})
+app.get('/', async (req, res) => {
+    const clients = await Bodyfat.find({});
+    res.render('home', { clients })
 })
 
 app.listen(3000, () => {
