@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const Bodyfat = require('./models/bodyfat')
 
 mongoose.connect('mongodb://localhost:27017/bodyfat-calculator');
 
@@ -19,6 +20,10 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.get('/', (req, res) =>{
     res.render('home')
+})
+
+app.get('/bodyfat', async (req, res) =>{
+    const bodyfat = await Bodyfat.find({})
 })
 
 app.listen(3000, () => {
