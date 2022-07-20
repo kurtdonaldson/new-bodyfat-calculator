@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const Bodyfat = require('./models/bodyfat')
+const Bodyfat = require('./models/bodyfat');
+const bodyParser = require("body-parser");
 
 mongoose.connect('mongodb://localhost:27017/bodyfat-calculator');
 
@@ -13,6 +14,9 @@ db.once("open", () => {
 });
 
 const app = express();
+
+// Below to parse the req.body. Telling express to parse the body
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Below so I can use css stylesheet in ejs file. 
 app.use(express.static(__dirname + '/public'));
@@ -26,6 +30,12 @@ app.get('/', async (req, res) => {
     res.render('home', { clients })
 })
 
+// creating new client
+app.post('/clients', async(req, res) => {
+    const client = new Bodyfat(req.body);
+    await client.save();
+    res.redirect("/");
+})
 
 app.listen(3000, () => {
     console.log("LISTENING ON PORT 3000")
