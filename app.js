@@ -37,6 +37,12 @@ app.post('/clients', async(req, res) => {
     res.redirect("/");
 })
 
+// add new test to client and save to DB
+app.put('/clients', async(req, res) => {
+    const name = req.body.name;
+    Bodyfat.findOneAndUpdate(name, {})
+})
+
 app.listen(3000, () => {
     console.log("LISTENING ON PORT 3000")
 });
