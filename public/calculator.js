@@ -98,7 +98,7 @@ calculate.addEventListener("click", () => {
                         (genderButton.value === "male" && bodyfat.value <= 13) ||
                         (genderButton.value === "female" && bodyfat.value <= 20)
                     ) {
-                        classification.value = "Athletes";
+                        classification.value = "Athlete";
                     } else if (
                         (genderButton.value === "male" && bodyfat.value <= 17) ||
                         (genderButton.value === "female" && bodyfat.value <= 24)
@@ -158,4 +158,5 @@ reset.addEventListener("click", () => {
     todayDate.innerHTML = "";
     classificationPopulate.innerHTML = "";
     leanmasspopulate.innerHTML = "";
+    weightPopulate.innerHTML = "";
 });
