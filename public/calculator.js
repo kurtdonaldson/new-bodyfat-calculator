@@ -18,6 +18,7 @@ const bodyfatPopulate = document.querySelector("#bodyfat-populate");
 const todayDate = document.querySelector("#today-date");
 const date = new Date();
 const leanmasspopulate = document.querySelector("#leanmass-populate");
+const weightPopulate = document.querySelector('#weight-populate');
 
 calculate.addEventListener("click", () => {
     if (age.value) {
@@ -119,10 +120,12 @@ calculate.addEventListener("click", () => {
                     leanMass.value =
                         (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
                         " lbs";
+                        weightPopulate.innerHTML = `${weight.value} lbs`;
                 } else {
                     leanMass.value =
                         (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
                         " kgs";
+                        weightPopulate.innerHTML = `${weight.value} kgs`;
                 }
             }
         } else {
@@ -137,7 +140,8 @@ calculate.addEventListener("click", () => {
     leanmasspopulate.innerHTML = leanMass.value;
     todayDate.innerHTML = `${date.getDate()}/${date.getMonth() + 1
         }/${date.getFullYear()}`;
-    // date not working
+    
+
 });
 
 reset.addEventListener("click", () => {
