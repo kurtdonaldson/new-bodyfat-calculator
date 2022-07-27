@@ -30,11 +30,12 @@ for (const button of viewBtn) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: document.querySelector("#clientName").innerHTML,
-        classification: document.querySelector("#classification-populate")
-          .innerHTML,
-        leanMass: document.querySelector("#leanmass-populate").innerHTML,
-        bodyfat: document.querySelector("#bodyfat-populate").innerHTML,
         date: document.querySelector("#today-date").innerHTML,
+        bodyfat: document.querySelector("#bodyfat-populate").innerHTML,
+        weight: document.querySelector('#weight-populate').innerHTML,
+        leanMass: document.querySelector("#leanmass-populate").innerHTML,
+        classification: document.querySelector("#classification-populate")
+          .innerHTML,  
       }),
     })
       .then((res) => {
