@@ -39,6 +39,17 @@ app.post('/', async(req, res) => {
     res.redirect("/");
 })
 
+// delete user from DB
+app.delete("/clients", async(req, res) => {
+    const clients = await Bodyfat.deleteOne(req.body)
+        .then(() => {
+          res.json(`Deleted user`);
+        })
+        .catch(() => {
+          res.redirect("/");
+        });
+    });
+
 // add new test to client and save to DB
 app.put("/clients", async(req, res) => {
     const clients = await Bodyfat.findOneAndUpdate(
