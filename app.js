@@ -40,11 +40,31 @@ app.post('/', async(req, res) => {
 })
 
 // add new test to client and save to DB
-app.put('/clients', async(req, res) => {
-    console.log(req.body)
-    // const name = req.body.name;
-    // Bodyfat.findOneAndUpdate(name, {})
-})
+app.put("/clients", async(req, res) => {
+    const clients = await Bodyfat.findOneAndUpdate(
+          { name: req.body.name },
+          {
+            $push: {
+              test: {
+                date: req.body.date,
+                bodyfat: req.body.bodyfat,
+                weight: req.body.weight,
+                leanMass: req.body.leanMass,
+                classification: req.body.classification, 
+              },
+            },
+          },
+          {
+            upsert: true,
+          }
+        )
+        .then(() => {
+          res.json("Success");
+        })
+        .catch(() => {
+          res.redirect("/");
+        });
+    });
 
 app.listen(3000, () => {
     console.log("LISTENING ON PORT 3000")
