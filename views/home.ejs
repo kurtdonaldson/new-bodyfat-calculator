@@ -74,8 +74,33 @@
                         <h2 id="customer-details"><b>Clients</b></h2>
                       </div>
                       <div class="col" style="padding: 0">
-                        <div><%= success %></div>
-                      </div>
+                        <% if(success && success.length) {%> 
+                        <div
+                        class="alert alert-success alert-dismissible fade show"
+                        role="alert"
+                      >
+                        <%= success %>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="alert"
+                          aria-label="Close"
+                        ></button></div>
+                        <% } %>
+
+                        <% if(error && error.length) {%> 
+                          <div
+                          class="alert alert-danger alert-dismissible fade show"
+                          role="alert"
+                        >
+                          <%= error %>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"
+                          ></button></div>
+                          <% } %>
                     </div>
                   </div>
                   <table class="table table-striped table-hover table-bordered">
