@@ -8,6 +8,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
+const {isLoggedIn} = require('./middleware');
 const flash = require('connect-flash');
 // const { measureMemory } = require('vm'); Not sure how this came up??
 
@@ -29,9 +30,10 @@ app.set('views', path.join(__dirname, 'views'))
 // Below to parse the req.body. Telling express to parse the body
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// I was stuck for a long time because I didn't have this. Stuck on the save button.
 app.use(bodyParser.json());
 
-app.use('/', userRoutes);
+
 
 // Below so I can use css stylesheet in ejs file. 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -70,24 +72,17 @@ app.use((req, res, next) => {
   next();
 })
 
-
-
-app.get('/fakeUser', async(req, res) => {
-  const user = new User({ email:'kurttttt@gmail.com', username: 'kurttt'});
-  const newUser = await User.register(user, 'chicken');
-  res.send(newUser);
-})
-
-
+app.use('/', userRoutes);
 
 // clients used on ejs template to access this data. 
-app.get('/', async (req, res) => {
+// isLoggedIn. Middleware being exported from middleware.js file. Checks if user is logged in. 
+app.get('/', isLoggedIn, async (req, res) => {
     const clients = await Bodyfat.find({});
     res.render('home', { clients })
 })
 
 // creating new client. this is working
-app.post('/', async(req, res) => {
+app.post('/', isLoggedIn, async(req, res) => { 
     const client = new Bodyfat(req.body);
     await client.save();
     req.flash('success', 'Successfully created a new client!');
