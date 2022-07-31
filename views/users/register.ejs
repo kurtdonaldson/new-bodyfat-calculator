@@ -19,6 +19,21 @@
     style="height: 100vh; background-color: rgb(176, 235, 250)"
   >
     <div class="container" style="height: 500px; width: 1200px">
+      <% if(error && error.length) {%>
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        style="max-width: 600px; margin: auto"
+        role="alert"
+      >
+        <%= error %>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% } %>
       <div class="row">
         <div class="col-md-6 offset-md-3">
           <div
@@ -86,7 +101,7 @@
                 <div class="invalid-feedback">Please fill out this field.</div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Register</button>
             </form>
             <p class="text-center mt-3 text-secondary">
               If you have account, Please <a href="#">Login Now</a>

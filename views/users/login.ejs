@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lgin</title>
+    <title>Login</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,49 +13,84 @@
     />
     <link rel="stylesheet" href="/public/styles.css" />
   </head>
-  <body>
-    <div class="container">
+  <body
+    id="login-body"
+    class="d-flex justify-content-center align-items-center"
+    style="height: 100vh; background-color: rgb(176, 235, 250)"
+  >
+    <div class="container" style="height: 500px; width: 1200px">
+      <% if(error && error.length) {%>
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        style="max-width: 600px; margin: auto"
+        role="alert"
+      >
+        <%= error %>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% } %>
       <div class="row">
         <div class="col-md-6 offset-md-3">
-          <div class="signup-form">
-            <form action="" class="mt-5 border p-4 bg-light shadow">
-              <h4 class="mb-5 text-secondary">Login</h4>
-              <div class="row">
-                <div class="mb-3 col-md-6">
-                  <label>Name<span class="text-danger">*</span></label>
-                  <input
-                    type="text"
-                    name="fname"
-                    class="form-control"
-                    placeholder="Enter First Name"
-                  />
-                </div>
-
-                <div class="mb-3 col-md-12">
-                  <label>Email<span class="text-danger">*</span></label>
-                  <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    placeholder="Email"
-                  />
-                </div>
-                <div class="mb-3 col-md-12">
-                  <label>Password<span class="text-danger">*</span></label>
-                  <input
-                    type="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Password"
-                  />
-                </div>
-                <div class="col-md-12">
-                  <button class="btn btn-primary float-end">Login</button>
-                </div>
+          <div
+            class="signup-form"
+            style="
+              background-color: white;
+              padding: 50px 30px;
+              border: 1px solid rgba(122, 122, 122, 0.514);
+              border-radius: 3px;
+              box-shadow: 5px 5px #88888852;
+            "
+          >
+            <h3
+              style="
+                text-align: center;
+                margin-top: -15px;
+                padding-bottom: 15px;
+              "
+            >
+              Login - Bodyfat Calculator
+            </h3>
+            <form
+              action="/login"
+              method="post"
+              class="was-validated"
+              novalidate
+            >
+              <div class="mb-3 mt-3">
+                <label for="username" class="form-label">Username:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  placeholder="Enter username"
+                  name="username"
+                  required
+                />
+                <div class="invalid-feedback">Please fill out this field.</div>
               </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="Enter password"
+                  name="password"
+                  required
+                />
+                <div class="invalid-feedback">Please fill out this field.</div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Login</button>
             </form>
             <p class="text-center mt-3 text-secondary">
-              If you don't have an account, Please <a href="#">Register here</a>
+              If you don't have an account, Please
+              <a href="register.ejs">Register Now</a>
             </p>
           </div>
         </div>
