@@ -229,4 +229,12 @@
     }
   }
   
-  
+#form-container{
+  height: calc(100vh -20px);
+  width: calc(100vw -20px);
+}
+
+/* register css */
+#register-body{
+  background-color: #03a9f4;
+}

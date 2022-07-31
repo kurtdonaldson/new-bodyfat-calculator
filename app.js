@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const Bodyfat = require('./models/bodyfat');
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require('./models/user');
+const userRoutes = require('./routes/users');
 const flash = require('connect-flash');
 // const { measureMemory } = require('vm'); Not sure how this came up??
 
@@ -18,13 +22,19 @@ db.once("open", () => {
 
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
+
+
 // Below to parse the req.body. Telling express to parse the body
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
+app.use('/', userRoutes);
+
 // Below so I can use css stylesheet in ejs file. 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
     // extra security measureMemory. httpOnly. Ensure cookies sent securely and aren't accessed by unintented parties or scripts
     // Have expiry so someone doesn't just login once and stayed logged in
@@ -43,6 +53,16 @@ app.use(session(sessionConfig));
 
 app.use(flash());
 
+// need to make sure passport.session is after sessionConfig. 
+app.use(passport.initialize());
+app.use(passport.session());
+//we are getting passport to use the local strategy that we have downloaded and required. 
+passport.use(new LocalStrategy(User.authenticate()));
+
+//Tellling passport how to serialise user. How do we store and unstore a user in the session. 
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // setting up middleware to use flash. 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
@@ -50,8 +70,15 @@ app.use((req, res, next) => {
   next();
 })
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'))
+
+
+app.get('/fakeUser', async(req, res) => {
+  const user = new User({ email:'kurttttt@gmail.com', username: 'kurttt'});
+  const newUser = await User.register(user, 'chicken');
+  res.send(newUser);
+})
+
+
 
 // clients used on ejs template to access this data. 
 app.get('/', async (req, res) => {
