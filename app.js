@@ -67,6 +67,8 @@ passport.deserializeUser(User.deserializeUser());
 
 // setting up middleware to use flash. 
 app.use((req, res, next) => {
+  // i now have access to currentUser from all ejs templates
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();

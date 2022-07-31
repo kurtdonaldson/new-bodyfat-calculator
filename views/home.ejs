@@ -51,8 +51,12 @@
           <section
             style="background-image: linear-gradient(90deg, #3b656d, #a1dbec)"
           >
-            <div style="padding: 8px">
+            <div style="padding: 8px" class="d-flex justify-content-between">
               <h1>Skinfold Bodyfat Calculator</h1>
+              <!-- this code says that is user is logged in they have access to logout button -->
+              <% if(currentUser){ %> 
+              <a href="/logout" class="nav-link" style="height: 40px; border: 1px solid rgba(0, 0, 255, 0.24); border-radius: 4px; font-size: 1em; background-color: #3b818f98; color: antiquewhite;">Logout</a>
+              <% } %> 
             </div>
           </section>
         </div>
