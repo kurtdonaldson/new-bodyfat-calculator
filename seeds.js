@@ -12,28 +12,31 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
+//To keep things tidy. I have my name set as author for seeds files. These clients will now only show when my name is logged in. 
 const seedClients = [
     {     
         name: 'John Doe',
+        author: "62ea3108ac5eba97757be291",
         test: [
            {
              date: "20/07/2022",
              bodyfat: "15%",
              weight: "100kg",
              leanMass: "80kg",
-             classification: "Athlete"
+             classification: "Athlete",
            }
         ]
     },
     {     
         name: 'Jane Doe',
+        author: "62ea3108ac5eba97757be291",
         test: [
            {
              date: "10/07/2022",
              bodyfat: "10%",
              weight: "60kg",
              leanMass: "50kg",
-             classification: "Fitness"
+             classification: "Fitness",
            }
         ]
     },
