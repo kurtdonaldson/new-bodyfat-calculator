@@ -143,8 +143,9 @@
                         </tr>
                       </form>
                       <!-- We first see if there's a user logged in (currentUser). Then we check to see if the user ID and author ID are the same. If so, display the clients.  -->
+                      <% console.log(clients) %>
                       <% for(let i = 0; i < clients.length; i++) { %>
-                       <% console.log(clients[i].author) %>
+                      
                       <tr>
                         <td>
                           <%= clients[i].name %></td>
@@ -164,7 +165,6 @@
                           </button>
                         </td>
                       </tr>
-                    
                       <% } %>
                     </tbody>
                   </table>
