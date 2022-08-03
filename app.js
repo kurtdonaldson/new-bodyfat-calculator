@@ -84,8 +84,11 @@ app.get('/', isLoggedIn, async (req, res) => {
 })
 
 // creating new client. this is working
+//client.author - save the user to the client being created. 
 app.post('/', isLoggedIn, async(req, res) => { 
     const client = new Bodyfat(req.body);
+    client.author = req.user._id;
+    // console.log(client.author)
     await client.save();
     req.flash('success', 'Successfully created a new client!');
     res.redirect("/");
