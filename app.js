@@ -1,3 +1,11 @@
+if(process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
+
+
+// If we are not in production and are in development mode, we will require dotenv package. We'll take env variables and add them into process.env in node app. 
+
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -88,14 +96,13 @@ app.get('/', isLoggedIn, async (req, res) => {
 app.post('/', isLoggedIn, async(req, res) => { 
     const client = new Bodyfat(req.body);
     client.author = req.user._id;
-    // console.log(client.author)
     await client.save();
     req.flash('success', 'Successfully created a new client!');
     res.redirect("/");
 })
 
 // delete user from DB
-app.delete("/clients", async(req, res) => {
+app.delete("/clients", isLoggedIn, async(req, res) => {
     const clients = await Bodyfat.deleteOne(req.body)
         .then(() => {
           res.json(`Deleted user`);
@@ -106,8 +113,15 @@ app.delete("/clients", async(req, res) => {
     });
 
 // add new test to client and save to DB
-app.put("/clients", async(req, res) => {
-    const clients = await Bodyfat.findOneAndUpdate(
+// Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection. 
+// Working except still figuring out how to display flash on home page....
+app.put("/clients", isLoggedIn, async(req, res) => {
+    const clientCheck = await Bodyfat.findOne({name: req.body.name});
+    if(!clientCheck.author.equals(req.user._id)){
+      console.log('YOU DO NOT HAVE PERMISSION TO DO THAT!');
+      res.redirect("/");
+    } else {
+      const clients = await Bodyfat.findOneAndUpdate(
           { name: req.body.name },
           {
             $push: {
@@ -130,6 +144,9 @@ app.put("/clients", async(req, res) => {
         .catch(() => {
           res.redirect("/");
         });
+    }
+
+    
     });
 
 app.listen(3000, () => {

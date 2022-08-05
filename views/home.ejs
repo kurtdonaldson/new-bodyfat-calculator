@@ -55,7 +55,6 @@
               <h1>Skinfold Bodyfat Calculator</h1>
               <!-- this code says that is user is logged in they have access to logout button -->
               <% if(currentUser){ %> 
-                <% console.log(currentUser._id) %> 
                 <span>Welcome <%=currentUser.username %></span>
               <a href="/logout" class="nav-link" style="height: 40px; border: 1px solid rgba(0, 0, 255, 0.24); border-radius: 4px; font-size: 1em; background-color: #3b818f98; color: antiquewhite;">Logout</a>
               <% } %> 
@@ -143,28 +142,28 @@
                         </tr>
                       </form>
                       <!-- We first see if there's a user logged in (currentUser). Then we check to see if the user ID and author ID are the same. If so, display the clients.  -->
-                      <% console.log(clients) %>
-                      <% for(let i = 0; i < clients.length; i++) { %>
-                      
+                      <% let authorsClients = clients.filter(e => e.author.equals(currentUser._id)) %>
+                      <% for(let i = 0; i < authorsClients.length; i++) { %>
                       <tr>
                         <td>
-                          <%= clients[i].name %></td>
+                          <%= authorsClients[i].name %></td>
                         <td class="text-center">
                           <button
                             class="btn btn-primary btn-sm viewButton"
-                            data-name="<%=  clients[i].name %>"
+                            data-name="<%=  authorsClients[i].name %>"
                           >
                             View
                           </button>
 
                           <button
                             class="btn btn-danger btn-sm deleteButton"
-                            data-name="<%=  clients[i].name %>"
+                            data-name="<%=  authorsClients[i].name %>"
                           >
                             Delete
                           </button>
                         </td>
                       </tr>
+
                       <% } %>
                     </tbody>
                   </table>
