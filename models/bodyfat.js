@@ -19,21 +19,7 @@ const BodyfatSchema = new Schema({
     ]
 });
 
-//Potential Schema
-// const BodyfatSchema = new Schema({
-//     client: {
-//     name: String,
-//     test: [
-//         {
-//         date: String,
-//         bodyfat: String,
-//         weight: String,
-//         leanMass: String,
-//         classification: String
-//        }
-//        ]
-//     }
-// });
+
 
 //When looking on mongo for stored data. Will need to use db.bodyfats.find()
 //bodyfat will be pluralised to bodyfats

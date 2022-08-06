@@ -17,6 +17,8 @@ const LocalStrategy = require("passport-local");
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const {isLoggedIn} = require('./middleware');
+//mongo sanitize removes any keys containing prohibited characters. Helps prevent mongo inection. 
+const mongoSanitize = require('express-mongo-sanitize');
 const flash = require('connect-flash');
 // const { measureMemory } = require('vm'); Not sure how this came up??
 
@@ -33,6 +35,8 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
+
+app.use(mongoSanitize());
 
 
 // Below to parse the req.body. Telling express to parse the body
@@ -94,7 +98,7 @@ app.get('/', isLoggedIn, async (req, res) => {
 // creating new client. this is working
 //client.author - save the user to the client being created. 
 app.post('/', isLoggedIn, async(req, res) => { 
-    const client = new Bodyfat(req.body);
+   const client = new Bodyfat(req.body);
     client.author = req.user._id;
     await client.save();
     req.flash('success', 'Successfully created a new client!');
@@ -102,24 +106,29 @@ app.post('/', isLoggedIn, async(req, res) => {
 })
 
 // delete user from DB
+// Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection. 
 app.delete("/clients", isLoggedIn, async(req, res) => {
-    const clients = await Bodyfat.deleteOne(req.body)
+  const clientCheck = await Bodyfat.findOne({name: req.body.name});
+    if(!clientCheck.author.equals(req.user._id)){
+      console.log('YOU DO NOT HAVE PERMISSION TO DO THAT!');
+    } else {
+      const clients = await Bodyfat.deleteOne(req.body)
         .then(() => {
           res.json(`Deleted user`);
         })
         .catch(() => {
           res.redirect("/");
         });
+      }
     });
 
 // add new test to client and save to DB
 // Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection. 
-// Working except still figuring out how to display flash on home page....
+// Working except still figuring out how to display flash. 
 app.put("/clients", isLoggedIn, async(req, res) => {
     const clientCheck = await Bodyfat.findOne({name: req.body.name});
     if(!clientCheck.author.equals(req.user._id)){
       console.log('YOU DO NOT HAVE PERMISSION TO DO THAT!');
-      res.redirect("/");
     } else {
       const clients = await Bodyfat.findOneAndUpdate(
           { name: req.body.name },
@@ -144,9 +153,7 @@ app.put("/clients", isLoggedIn, async(req, res) => {
         .catch(() => {
           res.redirect("/");
         });
-    }
-
-    
+    }  
     });
 
 app.listen(3000, () => {

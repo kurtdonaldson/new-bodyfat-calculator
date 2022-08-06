@@ -66,23 +66,5 @@ for (const button of viewBtn) {
   });
 
 
-  // no route yet
-  // for (const button of deleteBtn) {
-  //   button.addEventListener("click", (e) => {
-  //     console.log(e.target.dataset);
-  //     fetch(`/users`, {
-  //       method: "delete",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         name: e.target.dataset.name,
-  //       }),
-  //     })
-  //       .then((res) => {
-  //         if (res.ok) return res.json();
-  //       })
-  //       .then(() => {
-  //         window.location.reload();
-  //       });
-  //   });
-  // }
+
   
