@@ -6,6 +6,7 @@ if(process.env.NODE_ENV !== "production") {
 // If we are not in production and are in development mode, we will require dotenv package. We'll take env variables and add them into process.env in node app. 
 
 
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -15,14 +16,17 @@ const session = require('express-session');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require('./models/user');
+const helmet = require('helmet');
 const userRoutes = require('./routes/users');
 const {isLoggedIn} = require('./middleware');
 //mongo sanitize removes any keys containing prohibited characters. Helps prevent mongo inection. 
 const mongoSanitize = require('express-mongo-sanitize');
 const flash = require('connect-flash');
-// const { measureMemory } = require('vm'); Not sure how this came up??
+const MongoDBStore = require("connect-mongo");
 
-mongoose.connect('mongodb://localhost:27017/bodyfat-calculator');
+// 'mongodb://localhost:27017/bodyfat-calculator'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/bodyfat-calculator';
+mongoose.connect(dbUrl);
 
 //making db variable saves you from saying mongoose.connection.on
 const db = mongoose.connection;
@@ -35,6 +39,52 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
+
+//automatically enables all 11 middleware that helmet comes with. 
+//Configure content security to allow bootstrap, unsplash etc. 
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+
+// const scriptSrcUrls = [
+//   "https://stackpath.bootstrapcdn.com/",
+//   "https://maxcdn.bootstrapcdn.com",
+//   "https://kit.fontawesome.com/",
+//   "https://cdn.jsdelivr.net",
+//   "https://code.jquery.com",
+// ];
+// const styleSrcUrls = [
+//   "https://kit-free.fontawesome.com/",
+//   "https://kit.fontawesome.com",
+//   "https://stackpath.bootstrapcdn.com/",
+//   "https://fonts.googleapis.com/",
+//   "https://use.fontawesome.com/",
+//   "https://fonts.gstatic.com",
+// ];
+// const fontSrcUrls = [];
+// app.use(
+//   helmet.contentSecurityPolicy({
+//       directives: {
+//           defaultSrc: [],
+//           connectSrc: ["'self'"],
+//           scriptSrc: ["'unsafe-inline'", "'self'", "https://cdn.jsdelivr.net", ...scriptSrcUrls],
+//           styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+//           workerSrc: ["'self'", "blob:"],
+//           objectSrc: [],
+//           imgSrc: [
+//               "'self'",
+//               "blob:",
+//               "data:",
+//               "https://images.unsplash.com/",
+//           ],
+//           fontSrc: ["'self'", ...fontSrcUrls],
+//       },
+//   })
+// );
+
+
 
 app.use(mongoSanitize());
 
@@ -52,14 +102,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 
     // extra security measureMemory. httpOnly. Ensure cookies sent securely and aren't accessed by unintented parties or scripts
     // Have expiry so someone doesn't just login once and stayed logged in
-const sessionConfig = {
-  secret: "thisshouldbeabettersecret!",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    //We'll use secure:true when we deploy for https. 
+
+  const secret = process.env.SECRET || "thisshouldbeabettersecret!";
+  
+    const store = MongoDBStore.create({
+      mongoUrl: dbUrl,
+      touchAfter: 24 * 60 * 60,
+      crypto: {
+          secret,
+      }
+  });
+
+
+ //error handling. 
+ store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e)
+ })
+
+  const sessionConfig = {
+    store,
+    name: "session",
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      // secure: true,
+     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+     maxAge: 1000 * 60 * 60 * 24 * 7,
   }
 }
 
