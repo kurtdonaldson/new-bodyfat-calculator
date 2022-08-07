@@ -12,9 +12,9 @@ const clientTD = document.querySelectorAll('.clientTD')
 
 for (const button of viewBtn) {
     button.addEventListener("click", (e) => {
-      clientName.innerHTML = e.target.dataset.name;
+      clientName.innerText = e.target.dataset.name;
       for(let i of clientYES){
-         if(i.innerHTML.includes(clientName.innerHTML)){
+         if(i.innerText.includes(clientName.innerText)){
           i.style.display = "table-cell";    
          } else{
           i.style.display = "none";
@@ -48,13 +48,13 @@ for (const button of viewBtn) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: document.querySelector("#clientName").innerHTML,
-        date: document.querySelector("#today-date").innerHTML,
-        bodyfat: document.querySelector("#bodyfat-populate").innerHTML,
-        weight: document.querySelector('#weight-populate').innerHTML,
-        leanMass: document.querySelector("#leanmass-populate").innerHTML,
+        name: document.querySelector("#clientName").innerText,
+        date: document.querySelector("#today-date").innerText,
+        bodyfat: document.querySelector("#bodyfat-populate").innerText,
+        weight: document.querySelector('#weight-populate').innerText,
+        leanMass: document.querySelector("#leanmass-populate").innerText,
         classification: document.querySelector("#classification-populate")
-          .innerHTML,  
+          .innerText,  
       }),
     })
       .then((res) => {

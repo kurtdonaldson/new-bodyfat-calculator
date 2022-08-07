@@ -120,12 +120,12 @@ calculate.addEventListener("click", () => {
                     leanMass.value =
                         (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
                         " lbs";
-                        weightPopulate.innerHTML = `${weight.value} lbs`;
+                        weightPopulate.innerText = `${weight.value} lbs`;
                 } else {
                     leanMass.value =
                         (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
                         " kgs";
-                        weightPopulate.innerHTML = `${weight.value} kgs`;
+                        weightPopulate.innerText = `${weight.value} kgs`;
                 }
             }
         } else {
@@ -135,10 +135,10 @@ calculate.addEventListener("click", () => {
         alert("Please enter age");
     }
 
-    classificationPopulate.innerHTML = classification.value;
-    bodyfatPopulate.innerHTML = `${bodyfat.value}%`;
-    leanmasspopulate.innerHTML = leanMass.value;
-    todayDate.innerHTML = `${date.getDate()}/${date.getMonth() + 1
+    classificationPopulate.innerText = classification.value;
+    bodyfatPopulate.innerText = `${bodyfat.value}%`;
+    leanmasspopulate.innerText = leanMass.value;
+    todayDate.innerText = `${date.getDate()}/${date.getMonth() + 1
         }/${date.getFullYear()}`;
     
 
@@ -154,9 +154,9 @@ reset.addEventListener("click", () => {
     subscap.value = "";
     suprailiac.value = "";
     triceps.value = "";
-    bodyfatPopulate.innerHTML = "";
-    todayDate.innerHTML = "";
-    classificationPopulate.innerHTML = "";
-    leanmasspopulate.innerHTML = "";
-    weightPopulate.innerHTML = "";
+    bodyfatPopulate.innerText = "";
+    todayDate.innerText = "";
+    classificationPopulate.innerText = "";
+    leanmasspopulate.innerText = "";
+    weightPopulate.innerText = "";
 });
