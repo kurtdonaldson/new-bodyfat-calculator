@@ -17,6 +17,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require('./models/user');
 const helmet = require('helmet');
+const contentSecurityPolicy = require("helmet-csp");
 const userRoutes = require('./routes/users');
 const {isLoggedIn} = require('./middleware');
 //mongo sanitize removes any keys containing prohibited characters. Helps prevent mongo inection. 
@@ -42,47 +43,63 @@ app.set('views', path.join(__dirname, 'views'))
 
 //automatically enables all 11 middleware that helmet comes with. 
 //Configure content security to allow bootstrap, unsplash etc. 
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  })
-);
 
-// const scriptSrcUrls = [
-//   "https://stackpath.bootstrapcdn.com/",
-//   "https://maxcdn.bootstrapcdn.com",
-//   "https://kit.fontawesome.com/",
-//   "https://cdn.jsdelivr.net",
-//   "https://code.jquery.com",
-// ];
-// const styleSrcUrls = [
-//   "https://kit-free.fontawesome.com/",
-//   "https://kit.fontawesome.com",
-//   "https://stackpath.bootstrapcdn.com/",
-//   "https://fonts.googleapis.com/",
-//   "https://use.fontawesome.com/",
-//   "https://fonts.gstatic.com",
-// ];
-// const fontSrcUrls = [];
-// app.use(
-//   helmet.contentSecurityPolicy({
-//       directives: {
-//           defaultSrc: [],
-//           connectSrc: ["'self'"],
-//           scriptSrc: ["'unsafe-inline'", "'self'", "https://cdn.jsdelivr.net", ...scriptSrcUrls],
-//           styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-//           workerSrc: ["'self'", "blob:"],
-//           objectSrc: [],
-//           imgSrc: [
-//               "'self'",
-//               "blob:",
-//               "data:",
-//               "https://images.unsplash.com/",
-//           ],
-//           fontSrc: ["'self'", ...fontSrcUrls],
-//       },
-//   })
-// );
+
+app.use(helmet());
+
+//102 and 44 errors to start!
+const scriptSrcUrls = [
+  "https://stackpath.bootstrapcdn.com/",
+  "https://api.tiles.mapbox.com/",
+  "https://api.mapbox.com/",
+  "https://kit.fontawesome.com/",
+  "https://cdnjs.cloudflare.com/",
+  "https://code.jquery.com/",
+  "https://cdn.jsdelivr.net/",
+];
+const styleSrcUrls = [
+  "https://kit-free.fontawesome.com/",
+  "https://kit.fontawesome.com/",
+  "https://stackpath.bootstrapcdn.com/",
+  "https://api.mapbox.com/",
+  "https://api.tiles.mapbox.com/",
+  "https://fonts.googleapis.com/",
+  "https://use.fontawesome.com/",
+  "https://fonts.gstatic.com/",
+  "https://maxcdn.bootstrapcdn.com/",
+  "https://cdn.jsdelivr.net/",
+];
+const fontSrcUrls = [
+  "https://ka-f.fontawesome.com/",
+  "https://fonts.gstatic.com/",
+  "https://maxcdn.bootstrapcdn.com/",
+];
+const connectSrc = [
+  "https://ka-f.fontawesome.com/",
+]
+
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+        defaultSrc: ["'self'"],
+        connectSrc: [...connectSrc],
+        scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+        styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+        workerSrc: ["'self'", "blob:"],
+        objectSrc: [],
+        imgSrc: [
+            "'self'",
+            "blob:",
+            "data:",
+            "https://images.unsplash.com/",
+        ],
+        fontSrc: [...fontSrcUrls],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: false,
+}));
 
 
 
@@ -98,7 +115,7 @@ app.use(bodyParser.json());
 
 
 // Below so I can use css stylesheet in ejs file. 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
     // extra security measureMemory. httpOnly. Ensure cookies sent securely and aren't accessed by unintented parties or scripts
     // Have expiry so someone doesn't just login once and stayed logged in
