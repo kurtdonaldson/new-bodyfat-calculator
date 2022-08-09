@@ -38,8 +38,15 @@ db.once("open", () => {
 
 const app = express();
 
+
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
+
+// Below so I can use css stylesheet in ejs file. 
+// app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static('public'));
+app.use(express.static('images'));
 
 //automatically enables all 11 middleware that helmet comes with. 
 //Configure content security to allow bootstrap, unsplash etc. 
@@ -114,8 +121,7 @@ app.use(bodyParser.json());
 
 
 
-// Below so I can use css stylesheet in ejs file. 
-app.use(express.static(path.join(__dirname, '/public')));
+
 
     // extra security measureMemory. httpOnly. Ensure cookies sent securely and aren't accessed by unintented parties or scripts
     // Have expiry so someone doesn't just login once and stayed logged in
