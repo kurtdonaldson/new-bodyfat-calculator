@@ -45,7 +45,7 @@
             <form
               action="/register"
               method="post"
-              class="was-validated"
+              class="needs-validation"
               novalidate
             >
               <div class="mb-3 mt-3">
@@ -59,7 +59,6 @@
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
               </div>
               <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Email:</label>
@@ -72,7 +71,9 @@
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="invalid-feedback">
+                  Please enter a valid email address.
+                </div>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
@@ -83,9 +84,12 @@
                   placeholder="Enter password"
                   name="password"
                   required
+                  minlength="4"
                 />
                 <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="invalid-feedback">
+                  Password must have at least 4 characters
+                </div>
               </div>
 
               <button type="submit" class="btn btn-primary">Register</button>
@@ -102,5 +106,6 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="/validateForms.js"></script>
   </body>
 </html>
