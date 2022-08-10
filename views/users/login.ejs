@@ -17,16 +17,16 @@
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
+
   <body
     id="login-body"
     class="d-flex justify-content-center align-items-center"
-    style="height: 100vh; background-color: rgb(176, 235, 250)"
   >
-    <div class="container" style="height: 500px; width: 1200px">
+    <div class="container">
       <% if(error && error.length) {%>
       <div
+        id="login-alert"
         class="alert alert-danger alert-dismissible fade show"
-        style="max-width: 600px; margin: auto"
         role="alert"
       >
         <%= error %>
@@ -40,25 +40,8 @@
       <% } %>
       <div class="row">
         <div class="col-md-6 offset-md-3">
-          <div
-            class="signup-form"
-            style="
-              background-color: white;
-              padding: 50px 30px;
-              border: 1px solid rgba(122, 122, 122, 0.514);
-              border-radius: 3px;
-              box-shadow: 5px 5px #88888852;
-            "
-          >
-            <h3
-              style="
-                text-align: center;
-                margin-top: -15px;
-                padding-bottom: 15px;
-              "
-            >
-              Login - Bodyfat Calculator
-            </h3>
+          <div class="signup-form">
+            <h3>Login - Bodyfat Calculator</h3>
             <form
               action="/login"
               method="post"
