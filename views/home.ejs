@@ -32,10 +32,10 @@
       <div class="row">
         <section id="title-login">
           <div id="title-div" class="d-flex justify-content-between">
-            <h1>Skinfold Bodyfat Calculator</h1>
+            <h1 id="h1">Skinfold Bodyfat Calculator</h1>
             <!-- this code says that is user is logged in they have access to logout button -->
             <% if(currentUser){ %>
-            <span class="align-self-center">Welcome <%=currentUser.username.toUpperCase() %></span>
+            <span id="current-user" class="align-self-center">Welcome <%=currentUser.username.toUpperCase() %></span>
             <a href="/logout" id="logout-button" class="nav-link align-self-center">Logout</a>
             <% } %>
           </div>
@@ -130,7 +130,7 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td style="color: #3b656d; font-weight: 600">
+                            <td id="gender-td" style="color: #3b656d; font-weight: 600">
                               Gender
                             </td>
                             <td>
@@ -149,7 +149,7 @@
                                     font-weight: 600;
                                   ">M</label>
                             </td>
-                            <td class="text-end">
+                            <td id="age-td" class="text-end">
                               <label for="age-input" class="form-label" style="color: #3b656d; font-weight: 600">Age</label>
                             </td>
 
@@ -160,8 +160,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <td style="color: #3b656d; font-weight: 600">
-                              Unit (weight)
+                            <td id="unit-td" style="color: #3b656d; font-weight: 600">
+                              Unit
                             </td>
                             <td>
                               <input class="form-check-input fs-5" type="radio" name="weight" id="kgs" value="kgs" style="border: 3px solid #3b656d" />
@@ -183,7 +183,7 @@
                                 lbs
                               </label>
                             </td>
-                            <td class="text-end">
+                            <td id="weight-td" class="text-end">
                               <label for="weight-input" style="color: #3b656d; font-weight: 600">Weight</label>
                             </td>
                             <td style="padding-top: 5px">
@@ -209,27 +209,27 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td class="col-2 skinfold-sites">
+                            <td id="supra-heading" class="col-2 skinfold-sites">
                               Suprailiac
                             </td>
                             <td class="col-4">
                               <input id="suprailiac-input" type="number" name="suprailiac" class="form-control skinfold-input" placeholder="mm"/>
                             </td>
-                            <td class="col-2 text-right skinfold-sites">
+                            <td id="triceps-heading"  class="col-2 text-right skinfold-sites">
                               Triceps
                             </td>
-                            <td class="col-4" style="min-width: 115px;">
+                            <td class="col-4">
                               <input id="triceps-input" type="number" name="triceps" class="form-control skinfold-input" placeholder="mm"/>
                             </td>
                           </tr>
                           <tr>
-                            <td class="col-2 skinfold-sites">
+                            <td id="subscap-heading"  class="col-2 skinfold-sites">
                               Subscapularis
                             </td>
                             <td class="col-4">
                               <input id="subscap-input" type="number" name="subscapularis" class="form-control skinfold-input" placeholder="mm"/>
                             </td>
-                            <td class="col-2 text-right skinfold-sites">
+                            <td id="biceps-heading"  class="col-2 text-right skinfold-sites">
                               Biceps
                             </td>
                             <td class="col-4">
@@ -415,13 +415,12 @@
         </div> 
       </div>
       <div class="row">
-        <footer class="text-center">
-          <p class="m-0 pt-3">
+        <footer class="d-flex text-center">
+          <p id="footer-text" class="m-0 pt-3">
             Durnin, J. V. G. A., & Womersley, J. (1974). Body Fat Assessed
             from Total Body Density and Its Estimation from Skinfold
             Thickness: Measurements on 481 Men and Women Aged from 16 to 72
-            Years. British Journal of Nutrition, 32, 77-97.
-            https://doi.org/10.1079/BJN19740060
+            Years. 
           </p>
         </footer>
       </div>
