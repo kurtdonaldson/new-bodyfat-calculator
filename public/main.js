@@ -12,10 +12,12 @@ const clientTD = document.querySelectorAll(".clientTD");
 
 for (const button of viewBtn) {
   button.addEventListener("click", (e) => {
+    viewBtn.forEach((btn) => (btn.disabled = false));
     clientName.innerHTML = e.target.dataset.name.bold();
     for (let i of clientYES) {
       if (i.innerText.includes(clientName.innerText)) {
         i.style.display = "table-cell";
+        button.disabled = true;
       } else {
         i.style.display = "none";
       }

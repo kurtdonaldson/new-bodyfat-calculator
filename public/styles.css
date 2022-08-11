@@ -371,7 +371,7 @@ table.table td i {
 
 #results-cont {
   background-color: #a1dbed;
-  height: 150px;
+  /* height: 150px; */
   padding: 0;
 }
 
@@ -465,6 +465,30 @@ footer {
   #footer-text{
     font-size: 10px;
   }
+  #reset-btn{
+    position: absolute;
+    right: 20px;
+    transform: translateY(-85px);
+  }
+  #client-results{
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .client-results-input{
+    min-width: 80px;
+  }
+
+  #no-client-heading{
+    font-size: 12px;
+  }
+  #bodyfat-populate{
+    padding-left: 20px;
+  }
+  .clientYES{
+    padding-right: 0;
+  }
+
 }
 
 /* register css */

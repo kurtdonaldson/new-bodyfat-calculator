@@ -262,7 +262,6 @@
                     <div class="col pb-3">
                       <h2 id="clientName"><b>No client selected</b></h2>
                     </div>
-                    <div class="col"></div>
                 </div>
                 <table class="table table-striped table-hover table-borderless">
                   <thead>
@@ -282,11 +281,11 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td id="today-date"></td>
-                      <td id="classification-populate"></td>
-                      <td id="bodyfat-populate"></td>
-                      <td id="leanmass-populate"></td>
-                      <td id="weight-populate"></td>
+                      <td id="today-date" class="result-populate"></td>
+                      <td id="classification-populate" class="result-populate"></td>
+                      <td id="bodyfat-populate" class="result-populate"></td>
+                      <td id="leanmass-populate" class="result-populate"></td>
+                      <td id="weight-populate" class="result-populate"></td>
 
                       <td>
                         <button id="save-button" type="button" class="btn btn-success">
@@ -301,20 +300,20 @@
                     <tr class="clientRow">
                       <td colspan="5" class="clientYES">
                         <div id="client-results">
-                          <div id="client-results-name">
+                          <div id="client-results-name" class="client-results-input">
                             <%=clients[i].name%>
                           </div>
-                          <div id="client-results-date">
+                          <div id="client-results-date" class="client-results-input">
                             <%=clients[i].test[j].date%>
                           </div>
-                          <div id="client-results-class">
+                          <div id="client-results-class" class="client-results-input">
                             <%=clients[i].test[j].classification%>
                           </div>
-                          <div><%=clients[i].test[j].bodyfat%></div>
-                          <div id="client-results-lean">
+                          <div id="client-results-bodyfat" class="client-results-input"><%=clients[i].test[j].bodyfat%></div>
+                          <div id="client-results-lean" class="client-results-input">
                             <%=clients[i].test[j].leanMass%>
                           </div>
-                          <div id="client-results-weight">
+                          <div id="client-results-weight" class="client-results-input">
                             <%=clients[i].test[j].weight%>
                           </div>
                         </div>
@@ -335,14 +334,14 @@
                   <table class="table-borderless">
                     <thead>
                       <tr>
-                        <th class="col-md-4">Bodyfat%</th>
-                        <th class="col-md-4">Lean mass</th>
-                        <th class="col-md-4">Classification</th>
+                        <th class="col-4 p-0">Bodyfat%</th>
+                        <th class="col-4 p-0">Lean mass</th>
+                        <th class="col-4 p-0">Classification</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr  style="padding-bottom: 20px;">
                         <td>
                           <input id="bodyfat-input" type="text" value="" class="form-control" disabled />
                         </td>
@@ -415,7 +414,7 @@
         </div> 
       </div>
       <div class="row">
-        <footer class="d-flex text-center">
+        <footer class="text-center">
           <p id="footer-text" class="m-0 pt-3">
             Durnin, J. V. G. A., & Womersley, J. (1974). Body Fat Assessed
             from Total Body Density and Its Estimation from Skinfold
