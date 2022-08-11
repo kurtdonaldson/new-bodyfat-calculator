@@ -12,7 +12,7 @@ const clientTD = document.querySelectorAll(".clientTD");
 
 for (const button of viewBtn) {
   button.addEventListener("click", (e) => {
-    clientName.innerText = e.target.dataset.name;
+    clientName.innerHTML = e.target.dataset.name.bold();
     for (let i of clientYES) {
       if (i.innerText.includes(clientName.innerText)) {
         i.style.display = "table-cell";

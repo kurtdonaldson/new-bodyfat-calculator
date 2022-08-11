@@ -46,7 +46,7 @@ h1 {
 }
 
 #clients-outer-container {
-  padding-top: 15px;
+  padding: 15px 0 0 0;
 }
 
 #clients-inner-container {
@@ -253,7 +253,7 @@ table.table td i {
 }
 
 #calculator-container {
-  padding-top: 15px;
+  padding: 15px 0 0 0;
 }
 
 #calculate-btn {
@@ -274,15 +274,6 @@ table.table td i {
 
 #calculate-btn:hover {
   background: #264247;
-}
-
-@media (max-width: 1150px) {
-  #measurement-sites {
-    margin-top: 30px;
-  }
-  #calculator-container {
-    padding-top: 0;
-  }
 }
 
 #measurement-outer {
@@ -321,8 +312,8 @@ table.table td i {
 }
 
 #no-client-container {
-  padding-top: 15px;
   background-color: #a1dbec;
+  padding: 15px 0 0 0;
 }
 
 #table-no-client {
@@ -380,12 +371,12 @@ table.table td i {
 
 #results-cont {
   background-color: #a1dbed;
-  height: 150px
-    ";
+  height: 150px;
+  padding: 0;
 }
 
 #results-outer {
-  padding-top: 15px;
+  padding: 15px 0 0 0;
 }
 
 #results {
@@ -394,10 +385,25 @@ table.table td i {
   padding: 15px;
 }
 
+#table-outer{
+  background-color: #a1dbed;
+  padding: 0;
+  border-radius: 5px;
+}
+
+#table-inner{
+  padding: 15px 0 0 0;
+
+}
+
+#table{
+  margin-bottom: 0
+}
+
 
 #classification-table{
   background-color: white; 
-  height: 300px
+  /* height: 300px */
 }
 
 #tr-class-table{
