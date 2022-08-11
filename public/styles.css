@@ -25,11 +25,7 @@ h1 {
   margin-left: 50px;
 }
 
-@media (max-width: 600px) {
-  #h1 {
-    font-size: 30px;
-  }
-}
+
 
 #logout-button {
   height: 40px;
@@ -290,6 +286,10 @@ table.table td i {
   font-weight: 600;
 }
 
+.skinfold-input{
+  min-width: 55px
+}
+
 #biceps-input {
   border: 3px solid #3b656d;
 }
@@ -422,6 +422,49 @@ footer {
   background-color: #a1dbed;
   height: 60px;
   font-size: 12px;
+}
+
+@media (max-width: 576px) {
+  #h1 {
+    font-size: 30px;
+  }
+  #current-user{
+    display: none;
+  }
+  #add-new{
+    max-width: 100px;
+  }
+  #calculator-input{
+    font-size: 15px;
+    padding: 5px 0;
+  }
+  #gender-td{
+    padding-left: 0;
+  }
+  #age-td{
+    padding-right: 0;
+  }
+  #unit-td{
+    padding-left: 0;
+  }
+  #weight-td{
+    padding-right: 0;
+  }
+  #biceps-heading{
+    padding-right: 0;
+  }
+  #subscap-heading{
+    padding-right: 0;
+  }
+  #supra-heading{
+    padding-right: 0;
+  }
+  #triceps-heading{
+    padding-right: 0;
+  }
+  #footer-text{
+    font-size: 10px;
+  }
 }
 
 /* register css */
