@@ -4,7 +4,7 @@
 
 <p>I worked alongside a user experience designer to create a one-page responsive web app for healthcare professionals who would use this in-clinic.</p>
 
-<p>I used HTML, CSS, Bootstrap and JavaScript for front end development. I used NodeJS and Express on the server side. Client data was saved to the non-relational database MongoDB using Mongoose. I used RESTful routing in order to map HTTP methods and CRUD actions. I used Passport.JS middleware for authentication. The app was deployed to Heroku.</p>
+<p>I used HTML, CSS, Bootstrap and JavaScript for front end development. I used NodeJS and Express on the server side. Client data was saved to the non-relational database MongoDB using Mongoose. I used RESTful routing in order to map HTTP methods and CRUD actions. I used Passport.JS middleware for authentication. The model-view-controller (MVC) design pattern was used to structure the application.  The app was deployed to Heroku.</p>
 
 <p>After multiple iterations we settled on a minimum viable product (MVP) that would meet the basic calculation needs.</p>
 
