@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
 
-  <body
-    id="login-body"
-    class="d-flex justify-content-center align-items-center"
-  >
+  <body id="login-body" class="d-flex align-items-center">
+    <div id="login-background-image">
+      <img id="clipboard-image" src="/images/clipboard.png" alt="" />
+    </div>
     <div class="container">
       <% if(error && error.length) {%>
       <div
@@ -38,44 +38,87 @@
         ></button>
       </div>
       <% } %>
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div class="signup-form">
-            <h3>Login - Bodyfat Calculator</h3>
-            <form action="/login" method="post" class="needs-validation">
-              <div class="mb-3 mt-3">
-                <label for="username" class="form-label">Username:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  placeholder="Enter username"
-                  name="username"
-                  required
-                />
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  placeholder="Enter password"
-                  name="password"
-                  required
-                />
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
-              </div>
 
-              <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <p class="text-center mt-3 text-secondary">
-              If you don't have an account, Please
-              <a href="/register">Register Now</a>
-            </p>
+      <div id="login-form" class="signup-form">
+        <div class="row h-100">
+          <!-- No cost hidden -->
+          <div class="col d-flex pb-4 ps-4 d-none d-md-flex">
+            <div class="align-self-end login-register-description">
+              <h3 class="login-register-label">No cost</h3>
+              <p>Free - always.</p>
+              <h3 class="login-register-label">Calculate</h3>
+              <p>
+                Calculate bodyfat<br />
+                percentage, lean mass,<br />
+                and classification group.
+              </p>
+              <h3 class="login-register-label">Track results</h3>
+              <p>
+                Save results against clients <br />
+                to track progress over time.
+              </p>
+            </div>
+          </div>
+
+          <div
+            id="login-register-input-container"
+            class="col-8 d-flex flex-column justify-content-around align-items-center"
+          >
+            <h1 class="login-register-heading pb-3">
+              <img src="/images/Logo_green.png" alt="" />
+              Skinfold bodyfat calculator
+            </h1>
+
+            <div id="login-inner-form">
+              <h2 class="login-register-subheading pb-3">Login</h2>
+              <form action="/login" method="post" class="needs-validation">
+                <div class="mb-3 mt-3">
+                  <label for="username" class="form-label login-register-label"
+                    >Username:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control input-lg login-register-input"
+                    placeholder="Enter username"
+                    name="username"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please fill out this field.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label login-register-label"
+                    >Password:</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control input-lg login-register-input"
+                    id="password"
+                    placeholder="Enter password"
+                    name="password"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please fill out this field.
+                  </div>
+                </div>
+                <div id="login-btn-container" class="pt-4 pb-3">
+                  <button
+                    type="submit"
+                    class="btn btn-info add-new btn-lg w-100 login-register-btn"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+              <p class="text-center mt-3 text-secondary">
+                If you don't have an account, Please
+                <a href="/register">Register Now</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

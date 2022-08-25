@@ -11,9 +11,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles.css" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Nunito:wght@300;600&family=Open+Sans:wght@400;500;700&family=Outfit:wght@700&family=Readex+Pro&display=swap" rel="stylesheet" />
@@ -298,7 +298,7 @@
                       if(clients[i].test){%> <% for(let j = 0; j <
                       clients[i].test.length; j++) { %>
                     <tr class="clientRow">
-                      <td colspan="5" class="clientYES">
+                      <td colspan="6" class="clientYES">
                         <div id="client-results">
                           <div id="client-results-name" class="client-results-input">
                             <%=clients[i].name%>
@@ -316,6 +316,13 @@
                           <div id="client-results-weight" class="client-results-input">
                             <%=clients[i].test[j].weight%>
                           </div>
+                          <%# comment 
+                          <div>
+                            <button class="btn btn-danger btn-sm deleteButtonTest" data-name="">
+                            Delete
+                          </button>
+                            </div>
+                          %>
                         </div>
                       </td>
                     </tr>

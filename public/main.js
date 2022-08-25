@@ -1,4 +1,5 @@
 const deleteBtn = document.querySelectorAll(".deleteButton");
+const deleteBtnTest = document.querySelectorAll(".deleteButtonTest");
 const deleteTest = document.querySelectorAll(".deleteTest");
 const editBtn = document.querySelectorAll(".editButton");
 const updateBtn = document.querySelector(".updateButton");
@@ -34,6 +35,29 @@ for (const button of deleteBtn) {
 
     if (confirmation) {
       fetch(`/clients`, {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: e.target.dataset.name,
+        }),
+      })
+        .then((res) => {
+          if (res.ok) return res.json();
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  });
+}
+
+for (const button of deleteBtnTest) {
+  button.addEventListener("click", (e) => {
+    // console.log(e.target.dataset);
+    const confirmation = confirm(`Are you sure you want to delete this test?`);
+
+    if (confirmation) {
+      fetch(`/clients/:id`, {
         method: "delete",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

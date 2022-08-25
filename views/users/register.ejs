@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
 
-  <body
-    id="register-body"
-    class="d-flex justify-content-center align-items-center"
-  >
+  <body id="register-body" class="d-flex align-items-center">
+    <div id="register-background-image">
+      <img id="clipboard-image" src="/images/clipboard.png" alt="" />
+    </div>
     <div id="register-container" class="container">
       <% if(error && error.length) {%>
       <div
@@ -38,65 +38,109 @@
         ></button>
       </div>
       <% } %>
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div id="reg-signup-form" class="signup-form">
-            <h3>Register - Bodyfat Calculator</h3>
-            <form
-              action="/register"
-              method="post"
-              class="needs-validation"
-              novalidate
-            >
-              <div class="mb-3 mt-3">
-                <label for="username" class="form-label">Username:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  placeholder="Enter username"
-                  name="username"
-                  required
-                />
-                <div class="valid-feedback">Looks good!</div>
-              </div>
-              <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Email:</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Enter email"
-                  name="email"
-                  required
-                />
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">
-                  Please enter a valid email address.
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  placeholder="Enter password"
-                  name="password"
-                  required
-                  minlength="4"
-                />
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">
-                  Password must have at least 4 characters
-                </div>
-              </div>
 
-              <button type="submit" class="btn btn-primary">Register</button>
-            </form>
-            <p class="text-center mt-3 text-secondary">
-              If you have account, Please <a href="/login">Login Now</a>
-            </p>
+      <div id="register-form" class="signup-form">
+        <div class="row h-100">
+          <div class="col d-flex pb-4 ps-4 d-none d-md-flex">
+            <div class="align-self-end login-register-description">
+              <h3 class="login-register-label">No cost</h3>
+              <p>Free - always.</p>
+              <h3 class="login-register-label">Calculate</h3>
+              <p>
+                Calculate bodyfat<br />
+                percentage, lean mass,<br />
+                and classification group.
+              </p>
+              <h3 class="login-register-label">Track results</h3>
+              <p>
+                Save results against clients <br />
+                to track progress over time.
+              </p>
+            </div>
+          </div>
+
+          <div
+            id="login-register-input-container"
+            class="col-8 d-flex flex-column justify-content-around align-items-center"
+          >
+            <h1 class="login-register-heading pb-3">
+              <img src="/images/Logo_green.png" alt="" /> Skinfold bodyfat
+              calculator
+            </h1>
+            <!-- Start back here -->
+
+            <div id="register-inner-form">
+              <h2 class="login-register-subheading pb-3">Register</h2>
+              <form
+                action="/register"
+                method="post"
+                class="needs-validation"
+                novalidate
+              >
+                <div class="mb-3 mt-3">
+                  <label for="username" class="form-label login-register-label"
+                    >Username:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control input-lg login-register-input"
+                    id="username"
+                    placeholder="Enter username"
+                    name="username"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please fill out this field.
+                  </div>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="email" class="form-label login-register-label"
+                    >Email:</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control input-lg login-register-input"
+                    id="email"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label login-register-label"
+                    >Password:</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control input-lg login-register-input"
+                    id="password"
+                    placeholder="Enter password"
+                    name="password"
+                    required
+                    minlength="4"
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Password must have at least 4 characters
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-info add-new btn-lg w-100 login-register-btn"
+                >
+                  Register
+                </button>
+              </form>
+              <p class="text-center mt-3 text-secondary">
+                If you have account, Please <a href="/login">Login Now</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
