@@ -18,11 +18,15 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
 
-  <body id="register-body" class="d-flex align-items-center">
+  <body
+    id="register-body"
+    class="d-flex align-items-center"
+    style="width: 100%"
+  >
     <div id="register-background-image">
       <img id="clipboard-image" src="/images/clipboard.png" alt="" />
     </div>
-    <div id="register-container" class="container">
+    <div class="container-md-fluid container-lg">
       <% if(error && error.length) {%>
       <div
         id="register-alert"

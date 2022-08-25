@@ -639,13 +639,19 @@ h3 {
   #register-body{
     width: 700px;
   }
+  #login-background-image{
+    display: none;
+  }
+  #register-background-image{
+    display: none;
+  }
 }
 
-@media screen and (max-width: 576px){
+/* @media screen and (max-width: 576px){
   #login-form{
     width: 675px;
   }
   #register-form{
     width: 675px;
   }
-}
+} */
