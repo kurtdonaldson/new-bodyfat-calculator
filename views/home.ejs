@@ -316,13 +316,12 @@
                           <div id="client-results-weight" class="client-results-input">
                             <%=clients[i].test[j].weight%>
                           </div>
-                          <%# comment 
                           <div>
-                            <button class="btn btn-danger btn-sm deleteButtonTest" data-name="">
+                            <button class="btn btn-danger btn-sm deleteButtonTest" data-name="<%=  clients[i].test[j]._id%>">
                             Delete
                           </button>
                             </div>
-                          %>
+                          
                         </div>
                       </td>
                     </tr>

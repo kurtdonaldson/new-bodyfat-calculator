@@ -21,6 +21,7 @@ const { isLoggedIn } = require("./middleware");
 const mongoSanitize = require("express-mongo-sanitize");
 const flash = require("connect-flash");
 const MongoDBStore = require("connect-mongo");
+const { findOne } = require("./models/bodyfat");
 
 // 'mongodb://localhost:27017/bodyfat-calculator'
 const dbUrl =
@@ -196,22 +197,28 @@ app.delete("/clients", isLoggedIn, async (req, res) => {
   }
 });
 
-// app.delete("/clients", isLoggedIn, async (req, res) => {
+//Next task - delete individual tests
+//May have to find one and update
+// app.put("/test", isLoggedIn, async (req, res) => {
 //   const clientCheck = await Bodyfat.findOne({ name: req.body.name });
 //   if (!clientCheck.author.equals(req.user._id)) {
 //     console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
 //   } else {
-//     const { id } = req.params;
-//     await Bodyfat.findByIdAndDelete(id);
-//     console.log(id);
-//     const clients = await Bodyfat.deleteOne(req.body)
-//       .then(() => {
-//         res.json(`Deleted test`);
-//       })
-//       .catch(() => {
-//         res.redirect("/");
-//       });
-//   }
+
+//   const id = req.body;
+//   console.log(id);
+//   const test = await Bodyfat.findOne({ name: "Kurt" });
+//   console.log(test);
+//   const { id } = req.params;
+//   const found = await Bodyfat.findOne({ test: [] });
+//   console.log(found);
+
+//   .then(() => {
+//     res.json(`Deleted test`);
+//   })
+//   .catch(() => {
+//     res.redirect("/");
+//   });
 // });
 
 // add new test to client and save to DB
