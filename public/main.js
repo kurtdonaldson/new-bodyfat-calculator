@@ -28,11 +28,9 @@ for (const button of viewBtn) {
 
 for (const button of deleteBtn) {
   button.addEventListener("click", (e) => {
-    console.log(e.target.dataset);
     const confirmation = confirm(
       `Are you sure you want to delete ${e.target.dataset.name}`
     );
-
     if (confirmation) {
       fetch(`/clients`, {
         method: "delete",
@@ -51,28 +49,28 @@ for (const button of deleteBtn) {
   });
 }
 
-for (const button of deleteBtnTest) {
-  button.addEventListener("click", (e) => {
-    // console.log(e.target.dataset);
-    const confirmation = confirm(`Are you sure you want to delete this test?`);
+// for (const button of deleteBtnTest) {
+//   button.addEventListener("click", (e) => {
+//     // console.log(e.target.dataset.name);
+//     const confirmation = confirm(`Are you sure you want to delete this test?`);
 
-    if (confirmation) {
-      fetch(`/clients/:id`, {
-        method: "delete",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: e.target.dataset.name,
-        }),
-      })
-        .then((res) => {
-          if (res.ok) return res.json();
-        })
-        .then(() => {
-          window.location.reload();
-        });
-    }
-  });
-}
+//     if (confirmation) {
+//       fetch(`/test`, {
+//         method: "put",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           name: e.target.dataset.name,
+//         }),
+//       })
+//         .then((res) => {
+//           if (res.ok) return res.json();
+//         })
+//         .then(() => {
+//           window.location.reload();
+//         });
+//     }
+//   });
+// }
 
 saveBtn.addEventListener("click", (e) => {
   e.preventDefault();
