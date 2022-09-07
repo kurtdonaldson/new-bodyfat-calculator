@@ -27,14 +27,26 @@ h1 {
 
 
 
-#logout-button {
+
+.nav-buttons{
   height: 40px;
   border: 1px solid rgba(0, 0, 255, 0.24);
   border-radius: 4px;
   font-size: 1em;
   background-color: #3b818f98;
   color: antiquewhite;
+  transition: .5s;
 }
+
+.nav-buttons:hover{
+  height: 40px;
+  border: 1px solid rgba(0, 0, 255, 0.24);
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #084f5ec9;
+  color: antiquewhite;
+}
+
 
 #clients-section {
   height: 340px;

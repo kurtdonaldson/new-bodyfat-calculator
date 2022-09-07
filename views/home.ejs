@@ -36,11 +36,65 @@
             <!-- this code says that is user is logged in they have access to logout button -->
             <% if(currentUser){ %>
             <span id="current-user" class="align-self-center">Welcome <%=currentUser.username.toUpperCase() %></span>
-            <a href="/logout" id="logout-button" class="nav-link align-self-center">Logout</a>
+            <div id="nav-buttons" class="d-flex">
+              <button type="button" id="instructions-button" class="nav-link align-self-center me-4 nav-buttons" data-bs-toggle="modal" data-bs-target="#modal">
+                Instructions
+              </button>
+              <a href="/logout" id="logout-button" class="nav-link align-self-center nav-buttons">Logout</a>
+            </div>
             <% } %>
           </div>
         </section>
       </div>
+
+      <!-- Modal code -->
+      <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl d-flex justify-content-center">
+    <div id="modal-container" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Bodyfat calculator instructions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col p-3" id="step-1-instructions">
+           <h2>Step 1</h2>
+           <p> - Create a new client and then select view. </p>
+          <img class="img-fluid" src="images/Step 1 bodyfat.png" alt="">
+        </div>
+        <div class="col p-3" id="step-2-instructions">
+          <h2>Step 2</h2>
+           <p> - Enter client details and skinfold measurements. </p>
+          <img class="img-fluid" src="images/Step 2 bodyfat.png" alt="">   
+        </div>
+      </div>
+      <div>
+      </div>
+      <div class="row">
+          <div class="col p-3" id="step-3-instructions">
+            <h2>Step 3</h2>
+           <p> - Save results to client. </p>
+            <img class="img-fluid" src="images/Step 3 bodyfat.png" alt="">
+           </div>
+           <div class="col p-3">
+            <img class="img-fluid" id="skinfold-sites-img" src="images/formated_skinfold_sites-removebg.png" alt="">
+           </div>
+
+      </div>
+        
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- flex-wrap the col to the next line -->
 
