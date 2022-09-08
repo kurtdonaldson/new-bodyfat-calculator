@@ -25,12 +25,9 @@ h1 {
   margin-left: 50px;
 }
 
-
-
-
-.nav-buttons{
+#instructions-button{
   height: 40px;
-  border: 1px solid rgba(0, 0, 255, 0.24);
+  border: 2px solid antiquewhite;
   border-radius: 4px;
   font-size: 1em;
   background-color: #3b818f98;
@@ -38,12 +35,21 @@ h1 {
   transition: .5s;
 }
 
-.nav-buttons:hover{
+#instructions-button:hover{
+  background-color: #084f5ec9;
+}
+
+#logout-button{
   height: 40px;
-  border: 1px solid rgba(0, 0, 255, 0.24);
   border-radius: 4px;
   font-size: 1em;
-  background-color: #084f5ec9;
+  background-color: #3b656d;
+  color: antiquewhite;
+  transition: .5s;
+}
+
+#logout-button:hover{
+  background-color: #264247;
   color: antiquewhite;
 }
 
