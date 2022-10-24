@@ -16,6 +16,7 @@ const User = require("./models/user");
 const helmet = require("helmet");
 const contentSecurityPolicy = require("helmet-csp");
 const userRoutes = require("./routes/users");
+const authRoutes = require("./routes/auth");
 const { isLoggedIn } = require("./middleware");
 //mongo sanitize removes any keys containing prohibited characters. Helps prevent mongo inection.
 const mongoSanitize = require("express-mongo-sanitize");
@@ -162,74 +163,16 @@ app.use((req, res, next) => {
 });
 
 app.use("/", userRoutes);
+app.use("/", authRoutes);
 
-// clients used on ejs template to access this data.
-// isLoggedIn. Middleware being exported from middleware.js file. Checks if user is logged in.
-app.get("/", isLoggedIn, async (req, res) => {
-  const clients = await Bodyfat.find({});
-  res.render("home", { clients });
-});
-
-// creating new client. this is working
-//client.author - save the user to the client being created.
-app.post("/", isLoggedIn, async (req, res) => {
-  const client = new Bodyfat(req.body);
-  client.author = req.user._id;
-  await client.save();
-  req.flash("success", "Successfully created a new client!");
-  res.redirect("/");
-});
-
-// delete user from DB
+// Router for adding new test to client
 // Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection.
-app.delete("/clients", isLoggedIn, async (req, res) => {
-  const clientCheck = await Bodyfat.findOne({ name: req.body.name });
-  if (!clientCheck.author.equals(req.user._id)) {
-    console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
-  } else {
-    const clients = await Bodyfat.deleteOne(req.body)
-      .then(() => {
-        res.json(`Deleted user`);
-      })
-      .catch(() => {
-        res.redirect("/");
-      });
-  }
-});
-
-//Next task - delete individual tests
-//May have to find one and update
-// app.put("/test", isLoggedIn, async (req, res) => {
-//   const clientCheck = await Bodyfat.findOne({ name: req.body.name });
-//   if (!clientCheck.author.equals(req.user._id)) {
-//     console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
-//   } else {
-
-//   const id = req.body;
-//   console.log(id);
-//   const test = await Bodyfat.findOne({ name: "Kurt" });
-//   console.log(test);
-//   const { id } = req.params;
-//   const found = await Bodyfat.findOne({ test: [] });
-//   console.log(found);
-
-//   .then(() => {
-//     res.json(`Deleted test`);
-//   })
-//   .catch(() => {
-//     res.redirect("/");
-//   });
-// });
-
-// add new test to client and save to DB
-// Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection.
-// Working except still figuring out how to display flash.
 app.put("/clients", isLoggedIn, async (req, res) => {
   const clientCheck = await Bodyfat.findOne({ name: req.body.name });
   if (!clientCheck.author.equals(req.user._id)) {
     console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
   } else {
-    const clients = await Bodyfat.findOneAndUpdate(
+    await Bodyfat.findOneAndUpdate(
       { name: req.body.name },
       {
         $push: {
