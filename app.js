@@ -3,38 +3,23 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // If we are not in production and are in development mode, we will require dotenv package. We'll take env variables and add them into process.env in node app.
-
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const Bodyfat = require("./models/bodyfat");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const helmet = require("helmet");
-const contentSecurityPolicy = require("helmet-csp");
 const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
-const { isLoggedIn } = require("./middleware");
 //mongo sanitize removes any keys containing prohibited characters. Helps prevent mongo inection.
 const mongoSanitize = require("express-mongo-sanitize");
 const flash = require("connect-flash");
+const dbUrl = require("./modules/mongo");
 const MongoDBStore = require("connect-mongo");
 const { findOne } = require("./models/bodyfat");
-
-// 'mongodb://localhost:27017/bodyfat-calculator'
-const dbUrl =
-  process.env.DB_URL || "mongodb://localhost:27017/bodyfat-calculator";
-mongoose.connect(dbUrl);
-
-//making db variable saves you from saying mongoose.connection.on
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connnection error:"));
-db.once("open", () => {
-  console.log("Database connected");
-});
 
 const app = express();
 
@@ -42,12 +27,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Below so I can use css stylesheet in ejs file.
-// app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static("public"));
 
 //automatically enables all 11 middleware that helmet comes with.
 //Configure content security to allow bootstrap, unsplash etc.
-
 app.use(helmet());
 
 //102 and 44 errors to start!
@@ -164,39 +147,6 @@ app.use((req, res, next) => {
 
 app.use("/", userRoutes);
 app.use("/", authRoutes);
-
-// Router for adding new test to client
-// Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection.
-app.put("/clients", isLoggedIn, async (req, res) => {
-  const clientCheck = await Bodyfat.findOne({ name: req.body.name });
-  if (!clientCheck.author.equals(req.user._id)) {
-    console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
-  } else {
-    await Bodyfat.findOneAndUpdate(
-      { name: req.body.name },
-      {
-        $push: {
-          test: {
-            date: req.body.date,
-            bodyfat: req.body.bodyfat,
-            weight: req.body.weight,
-            leanMass: req.body.leanMass,
-            classification: req.body.classification,
-          },
-        },
-      },
-      {
-        upsert: true,
-      }
-    )
-      .then(() => {
-        res.json("Success");
-      })
-      .catch(() => {
-        res.redirect("/");
-      });
-  }
-});
 
 const port = process.env.PORT || 3000;
 
