@@ -39,33 +39,38 @@ router.delete("/clients", isLoggedIn, async (req, res) => {
 // Router for adding new test to client
 // Using clientCheck to determine that clients author and user id are the same so that only the user can alter the clients data. Extra layer of protection.
 router.put("/clients", isLoggedIn, async (req, res) => {
-  const clientCheck = await Bodyfat.findOne({ name: req.body.name });
-  if (!clientCheck.author.equals(req.user._id)) {
-    console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
-  } else {
-    await Bodyfat.findOneAndUpdate(
-      { name: req.body.name },
-      {
-        $push: {
-          test: {
-            date: req.body.date,
-            bodyfat: req.body.bodyfat,
-            weight: req.body.weight,
-            leanMass: req.body.leanMass,
-            classification: req.body.classification,
+  try {
+    const clientCheck = await Bodyfat.findOne({ name: req.body.name });
+
+    if (!clientCheck.author.equals(req.user._id)) {
+      console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
+    } else {
+      await Bodyfat.findOneAndUpdate(
+        { name: req.body.name },
+        {
+          $push: {
+            test: {
+              date: req.body.date,
+              bodyfat: req.body.bodyfat,
+              weight: req.body.weight,
+              leanMass: req.body.leanMass,
+              classification: req.body.classification,
+            },
           },
         },
-      },
-      {
-        upsert: true,
-      }
-    )
-      .then(() => {
-        res.json("Success");
-      })
-      .catch(() => {
-        res.redirect("/");
-      });
+        {
+          upsert: true,
+        }
+      )
+        .then(() => {
+          res.json("Success");
+        })
+        .catch(() => {
+          res.redirect("/");
+        });
+    }
+  } catch (err) {
+    res.json("Error");
   }
 });
 

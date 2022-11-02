@@ -10,6 +10,7 @@ const clientValue = document.querySelector("#clientValue");
 const clientRow = document.querySelector(".clientRow");
 const clientYES = document.querySelectorAll(".clientYES");
 const clientTD = document.querySelectorAll(".clientTD");
+const saveMessage = document.querySelector(".saveMessage");
 
 for (const button of viewBtn) {
   button.addEventListener("click", (e) => {
@@ -90,7 +91,12 @@ saveBtn.addEventListener("click", (e) => {
     .then((res) => {
       if (res.ok) return res.json();
     })
-    .then(() => {
-      window.location.reload();
+    .then((res) => {
+      console.log(res);
+      if ((res = "Error")) {
+        saveMessage.innerHTML = "Please select client.";
+      } else {
+        window.location.reload();
+      }
     });
 });

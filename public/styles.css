@@ -665,11 +665,10 @@ h3 {
   }
 }
 
-/* @media screen and (max-width: 576px){
-  #login-form{
-    width: 675px;
-  }
-  #register-form{
-    width: 675px;
-  }
-} */
+/* No client selected error message */
+.saveMessage{
+  margin-left: 20px;
+  background-color: red;
+  color: white;
+  font-size: .9rem;
+}
