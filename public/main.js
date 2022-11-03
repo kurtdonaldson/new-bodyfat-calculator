@@ -50,28 +50,31 @@ for (const button of deleteBtn) {
   });
 }
 
-// for (const button of deleteBtnTest) {
-//   button.addEventListener("click", (e) => {
-//     // console.log(e.target.dataset.name);
-//     const confirmation = confirm(`Are you sure you want to delete this test?`);
+for (const button of deleteBtnTest) {
+  button.addEventListener("click", (e) => {
+    const buttonValue = button.value.split(",");
+    const testId = buttonValue[0];
+    const authorId = buttonValue[1];
 
-//     if (confirmation) {
-//       fetch(`/test`, {
-//         method: "put",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           name: e.target.dataset.name,
-//         }),
-//       })
-//         .then((res) => {
-//           if (res.ok) return res.json();
-//         })
-//         .then(() => {
-//           window.location.reload();
-//         });
-//     }
-//   });
-// }
+    const confirmation = confirm(`Are you sure you want to delete this test?`);
+    if (confirmation) {
+      fetch(`/testdelete`, {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          testId: testId,
+          authorId: authorId,
+        }),
+      })
+        .then((res) => {
+          if (res.ok) return res.json();
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  });
+}
 
 saveBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -92,8 +95,7 @@ saveBtn.addEventListener("click", (e) => {
       if (res.ok) return res.json();
     })
     .then((res) => {
-      console.log(res);
-      if ((res = "Error")) {
+      if (res == "Error") {
         saveMessage.innerHTML = "Please select client.";
       } else {
         window.location.reload();

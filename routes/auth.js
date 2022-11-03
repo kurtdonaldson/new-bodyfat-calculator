@@ -74,28 +74,39 @@ router.put("/clients", isLoggedIn, async (req, res) => {
   }
 });
 
+// Handler to delete individual tests
+router.delete("/testdelete", isLoggedIn, async (req, res) => {
+  const testId = req.body.testId;
+  const authorId = req.body.authorId;
+  console.log(authorId);
+
+  const clientCheck = await Bodyfat.findOne({ author: authorId });
+
+  if (clientCheck) {
+    try {
+      const testCheck = await Bodyfat.findOneAndUpdate(
+        { author: authorId },
+        {
+          $pull: {
+            test: { _id: testId },
+          },
+        }
+      )
+        .then(() => {
+          res.json(`Test deleted`);
+        })
+        .catch(() => {
+          res.redirect("/");
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    console.log("author id doesnt match!");
+  }
+
+  //Check if test exists
+  // const testCheck = await Bodyfat
+});
+
 module.exports = router;
-
-//Next task - delete individual tests
-//May have to find one and update
-// app.put("/test", isLoggedIn, async (req, res) => {
-//   const clientCheck = await Bodyfat.findOne({ name: req.body.name });
-//   if (!clientCheck.author.equals(req.user._id)) {
-//     console.log("YOU DO NOT HAVE PERMISSION TO DO THAT!");
-//   } else {
-
-//   const id = req.body;
-//   console.log(id);
-//   const test = await Bodyfat.findOne({ name: "Kurt" });
-//   console.log(test);
-//   const { id } = req.params;
-//   const found = await Bodyfat.findOne({ test: [] });
-//   console.log(found);
-
-//   .then(() => {
-//     res.json(`Deleted test`);
-//   })
-//   .catch(() => {
-//     res.redirect("/");
-//   });
-// });
