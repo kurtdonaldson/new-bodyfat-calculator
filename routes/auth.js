@@ -78,7 +78,6 @@ router.put("/clients", isLoggedIn, async (req, res) => {
 router.delete("/testdelete", isLoggedIn, async (req, res) => {
   const testId = req.body.testId;
   const authorId = req.body.authorId;
-  console.log(authorId);
 
   const clientCheck = await Bodyfat.findOne({ author: authorId });
 
@@ -104,9 +103,6 @@ router.delete("/testdelete", isLoggedIn, async (req, res) => {
   } else {
     console.log("author id doesnt match!");
   }
-
-  //Check if test exists
-  // const testCheck = await Bodyfat
 });
 
 module.exports = router;
