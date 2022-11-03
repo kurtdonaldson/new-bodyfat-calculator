@@ -311,7 +311,7 @@
                 <div class="table-title">
                   <div class="row">
                     <div class="col pb-3">
-                      <h2 id="clientName"><b>No client selected</b></h2>
+                      <h2 id="clientName"><b>No client selected </b><span class="saveMessage"></span></h2>
                     </div>
                 </div>
                 <table class="table table-striped table-hover table-borderless">
@@ -352,7 +352,7 @@
                       <td colspan="6" class="clientYES">
                         <div id="client-results">
                           <div id="client-results-name" class="client-results-input">
-                            <%=clients[i].name%>
+                            <%=clients[i].name%>                      
                           </div>
                           <div id="client-results-date" class="client-results-input">
                             <%=clients[i].test[j].date%>
@@ -368,10 +368,10 @@
                             <%=clients[i].test[j].weight%>
                           </div>
                           <div>
-                        <%#     <button class="btn btn-danger btn-sm deleteButtonTest" data-name=" clients[i].test[j]._id">
+                            <button class="btn btn-danger btn-sm deleteButtonTest" value='<%=clients[i].test[j]._id%>,<%=clients[i].author%>'>
                             Delete
                           </button>
-                          %>
+                          
                             </div>
                            
                         </div>
