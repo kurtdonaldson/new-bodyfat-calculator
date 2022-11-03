@@ -4,6 +4,7 @@ const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
 const { isLoggedIn } = require("../middleware");
 
 //Route to register page
@@ -74,8 +75,35 @@ router.get("/editAccount/:id", async (req, res) => {
 });
 
 // Route handler for edit account form
-router.post("/accountEditForm", (req, res) => {
+router.post("/accountEditForm", async (req, res) => {
   const { userId, username, email, password } = req.body;
+
+  const hash = await bcrypt.hash(password, 12);
+
+  try {
+    const clientCheck = await User.findOne({ _id: userId });
+    if (clientCheck) {
+      await User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $set: {
+            email: email,
+            username: username,
+            password: hash,
+          },
+        }
+      )
+        .then(() => {
+          req.flash("success", "Welcome Back!");
+          res.redirect("/login");
+        })
+        .catch(() => {
+          res.redirect("/login");
+        });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
