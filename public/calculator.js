@@ -19,10 +19,10 @@ const todayDate = document.querySelector("#today-date");
 const date = new Date();
 const leanmasspopulate = document.querySelector("#leanmass-populate");
 const weightPopulate = document.querySelector("#weight-populate");
-const saveBtn = document.querySelector("#save-button");
+const saveBtnDisplay = document.querySelector("#save-button");
 
 if (!todayDate.innerHTML) {
-  saveBtn.style.display = "none";
+  saveBtnDisplay.style.display = "none";
 }
 
 calculate.addEventListener("click", () => {
@@ -147,7 +147,7 @@ calculate.addEventListener("click", () => {
     date.getMonth() + 1
   }/${date.getFullYear()}`;
 
-  saveBtn.style.display = "block";
+  saveBtnDisplay.style.display = "block";
 });
 
 reset.addEventListener("click", () => {
