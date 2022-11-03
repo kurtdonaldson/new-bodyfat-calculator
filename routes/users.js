@@ -5,6 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const { isLoggedIn } = require("../middleware");
 
 //Route to register page
@@ -78,7 +79,8 @@ router.get("/editAccount/:id", async (req, res) => {
 router.post("/accountEditForm", async (req, res) => {
   const { userId, username, email, password } = req.body;
 
-  const hash = await bcrypt.hash(password, 12);
+  const salt = await bcrypt.genSalt();
+  const hash = await bcrypt.hash(password, salt);
 
   try {
     const clientCheck = await User.findOne({ _id: userId });
@@ -89,7 +91,8 @@ router.post("/accountEditForm", async (req, res) => {
           $set: {
             email: email,
             username: username,
-            password: hash,
+            hash: hash,
+            salt: salt,
           },
         }
       )
