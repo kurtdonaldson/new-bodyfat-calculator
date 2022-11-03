@@ -11,6 +11,28 @@ const clientRow = document.querySelector(".clientRow");
 const clientYES = document.querySelectorAll(".clientYES");
 const clientTD = document.querySelectorAll(".clientTD");
 const saveMessage = document.querySelector(".saveMessage");
+// const editAccountButtons = document.querySelectorAll(".editAccountButton");
+
+// if (editAccountButtons) {
+//   for (const button of editAccountButtons) {
+//     button.addEventListener("click", () => {
+//       const accountId = button.value;
+//       fetch(`/editAccount`, {
+//         method: "post",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           accountId: accountId,
+//         }),
+//       })
+//         .then((res) => {
+//           if (res.ok) return res.json();
+//         })
+//         .then(() => {
+//           window.location.reload();
+//         });
+//     });
+//   }
+// }
 
 for (const button of viewBtn) {
   button.addEventListener("click", (e) => {

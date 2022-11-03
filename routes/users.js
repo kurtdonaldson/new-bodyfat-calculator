@@ -64,4 +64,18 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
+// Route handler for edit account page
+router.get("/editAccount/:id", async (req, res) => {
+  const accountId = req.params.id;
+
+  const accountDetails = await User.findOne({ _id: accountId });
+
+  res.render("editAccount", { accountDetails });
+});
+
+// Route handler for edit account form
+router.post("/accountEditForm", (req, res) => {
+  const { userId, username, email, password } = req.body;
+});
+
 module.exports = router;

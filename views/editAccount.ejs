@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="This application calculates bodyfat percentage based on skinfold measurements. You can store your clients measurements in order to track their progress"
+    />
+    <title>Edit Account</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body
+    id="register-body"
+    class="d-flex align-items-center"
+    style="width: 100%"
+  >
+    <div id="register-background-image">
+      <img id="clipboard-image" src="/images/clipboard.png" alt="" />
+    </div>
+    <div class="container-md-fluid container-lg">
+      <% if(error && error.length) {%>
+      <div
+        id="register-alert"
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        <%= error %>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% } %>
+
+      <div id="register-form" class="signup-form">
+        <div class="row h-100">
+          <div class="col d-flex pb-4 ps-4 d-none d-md-flex">
+            <div class="align-self-end login-register-description">
+              <h3 class="login-register-label">No cost</h3>
+              <p>Free - always.</p>
+              <h3 class="login-register-label">Calculate</h3>
+              <p>
+                Calculate bodyfat<br />
+                percentage, lean mass,<br />
+                and classification group.
+              </p>
+              <h3 class="login-register-label">Track results</h3>
+              <p>
+                Save results against clients <br />
+                to track progress over time.
+              </p>
+            </div>
+          </div>
+
+          <div
+            id="login-register-input-container"
+            class="col-8 d-flex flex-column justify-content-around align-items-center"
+          >
+            <h1 class="login-register-heading pb-3">
+              <img src="/images/Logo_green.png" alt="" /> Skinfold bodyfat
+              calculator
+            </h1>
+            <!-- Start back here -->
+
+            <div id="register-inner-form">
+              <h2 class="login-register-subheading pb-3">
+                Change Account Details
+              </h2>
+              <form
+                action="/accountEditForm"
+                method="post"
+                class="needs-validation"
+                novalidate
+              >
+                <div class="mb-3 mt-3">
+                  <!-- Hidden input to send userId -->
+                  <input
+                    type="hidden"
+                    name="userId"
+                    value="<%= accountDetails._id %>"
+                  />
+                  <label for="username" class="form-label login-register-label"
+                    >Username:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control input-lg login-register-input"
+                    id="username"
+                    placeholder="Enter username"
+                    name="username"
+                    value="<%= accountDetails.username %>"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please fill out this field.
+                  </div>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="email" class="form-label login-register-label"
+                    >Email:</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control input-lg login-register-input"
+                    id="email"
+                    placeholder="Enter email"
+                    name="email"
+                    value="<%= accountDetails.email %>"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label login-register-label"
+                    >Password:</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control input-lg login-register-input"
+                    id="password"
+                    placeholder="Enter password"
+                    name="password"
+                    required
+                    minlength="4"
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Password must have at least 4 characters
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-info add-new btn-lg w-100 login-register-btn"
+                >
+                  Update details
+                </button>
+              </form>
+              <p class="text-center mt-3 text-secondary">
+                If you have account, Please <a href="/login">Login Now</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/validateForms.js"></script>
+  </body>
+</html>

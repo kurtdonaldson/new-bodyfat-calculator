@@ -672,3 +672,12 @@ h3 {
   color: white;
   font-size: .9rem;
 }
+
+.editAccountBtn{
+  background-color: rgb(133, 130, 0);
+  color: white;
+  text-decoration: none;
+  height: 30px;
+  border-radius: 3px;
+  width: 50px;
+}
