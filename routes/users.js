@@ -75,38 +75,69 @@ router.get("/editAccount/:id", async (req, res) => {
   res.render("editAccount", { accountDetails });
 });
 
-// Route handler for edit account form
-router.post("/accountEditForm", async (req, res) => {
-  const { userId, username, email, password } = req.body;
+router.post("/accountEditForm", catchAsync(async (req, res, next) => {
+    
+      const { userId, username, email, password } = req.body;
+      // const user = new User({ email, username });
 
-  const salt = await bcrypt.genSalt();
-  const hash = await bcrypt.hash(password, salt);
-
-  try {
-    const clientCheck = await User.findOne({ _id: userId });
-    if (clientCheck) {
-      await User.findOneAndUpdate(
-        { _id: userId },
-        {
-          $set: {
-            email: email,
-            username: username,
-            hash: hash,
-            salt: salt,
-          },
+      try {
+        const clientCheck = await User.findOne({ _id: userId });
+        if (clientCheck) {
+          await User.findOneAndUpdate(
+            { _id: userId },
+            {
+              $set: {
+                email: email,
+                username: username
+              },
+            }
+          )
+            .then(() => {
+              req.flash("success", "Welcome Back!");
+              res.redirect("/login");
+            })
+            .catch(() => {
+              res.redirect("/login");
+            });
         }
-      )
-        .then(() => {
-          req.flash("success", "Welcome Back!");
-          res.redirect("/login");
-        })
-        .catch(() => {
-          res.redirect("/login");
-        });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+      } catch (err) {
+        console.log(err);
+      } 
+  })
+);
+
+
+// router.post("/accountEditForm", async (req, res) => {
+//   const { userId, username, email, password } = req.body;
+
+//   const salt = await bcrypt.genSalt();
+//   const hash = await bcrypt.hash(password, salt);
+
+//   try {
+//     const clientCheck = await User.findOne({ _id: userId });
+//     if (clientCheck) {
+//       await User.findOneAndUpdate(
+//         { _id: userId },
+//         {
+//           $set: {
+//             email: email,
+//             username: username,
+//             hash: hash,
+//             salt: salt,
+//           },
+//         }
+//       )
+//         .then(() => {
+//           req.flash("success", "Welcome Back!");
+//           res.redirect("/login");
+//         })
+//         .catch(() => {
+//           res.redirect("/login");
+//         });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 module.exports = router;

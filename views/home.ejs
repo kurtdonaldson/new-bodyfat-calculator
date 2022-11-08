@@ -31,16 +31,18 @@
     <div class="container-fluid">
       <div class="row">
         <section id="title-login">
-          <div id="title-div" class="d-flex justify-content-between">
+          <div id="title-div" class="d-flex justify-content-between align-items-center">
             <h1 id="h1">Skinfold Bodyfat Calculator</h1>
             <!-- this code says that is user is logged in they have access to logout button -->
             <% if(currentUser){ %>
             <span id="current-user" class="align-self-center">Welcome <%=currentUser.username.toUpperCase() %></span>
-            <div id="nav-buttons" class="d-flex">
+            <div id="nav-buttons" class="d-flex justify-content-between">
+              
               <button type="button" id="instructions-button" class="nav-link align-self-center me-4 nav-buttons" data-bs-toggle="modal" data-bs-target="#modal">
                 Instructions
               </button>
               <a href="/logout" id="logout-button" class="nav-link align-self-center nav-buttons">Logout</a>
+              <a class="editAccountBtn" href="/editAccount/<%=  currentUser._id %>"><img src="/images/icons8-pencil-30.png" alt=""></a>
             </div>
             <% } %>
           </div>
@@ -159,7 +161,7 @@
                             Delete
                           </button>
 
-                          <a class="editAccountBtn" href="/editAccount/<%=  authorsClients[i].author %>">Edit</a>
+                         
 
                           
                         </td>
