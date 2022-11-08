@@ -12,151 +12,157 @@ const classification = document.querySelector("#classification-input");
 const leanMass = document.querySelector("#lean-mass-input");
 const reset = document.querySelector("#reset-btn");
 const classificationPopulate = document.querySelector(
-    "#classification-populate"
+  "#classification-populate"
 );
 const bodyfatPopulate = document.querySelector("#bodyfat-populate");
 const todayDate = document.querySelector("#today-date");
 const date = new Date();
 const leanmasspopulate = document.querySelector("#leanmass-populate");
-const weightPopulate = document.querySelector('#weight-populate');
+const weightPopulate = document.querySelector("#weight-populate");
+const saveBtnDisplay = document.querySelector("#save-button");
+
+if (!todayDate.innerHTML) {
+  saveBtnDisplay.style.display = "none";
+}
 
 calculate.addEventListener("click", () => {
-    if (age.value) {
-        if (weight.value) {
-            const bicepsInput = parseInt(biceps.value);
-            const tricepsInput = parseInt(triceps.value);
-            const subscapInput = parseInt(subscap.value);
-            const suprailiacInput = parseInt(suprailiac.value);
-            const total = bicepsInput + tricepsInput + subscapInput + suprailiacInput;
+  if (age.value) {
+    if (weight.value) {
+      const bicepsInput = parseInt(biceps.value);
+      const tricepsInput = parseInt(triceps.value);
+      const subscapInput = parseInt(subscap.value);
+      const suprailiacInput = parseInt(suprailiac.value);
+      const total = bicepsInput + tricepsInput + subscapInput + suprailiacInput;
 
-            const bodyfatFunc = (bd) => {
-                const bodyfatPercentage = 495 / bd - 450;
-                return bodyfatPercentage.toFixed(2);
-            };
+      const bodyfatFunc = (bd) => {
+        const bodyfatPercentage = 495 / bd - 450;
+        return bodyfatPercentage.toFixed(2);
+      };
 
-            for (let genderButton of genderButtons) {
-                if (genderButton.checked) {
-                    if (genderButton.value === "male") {
-                        if (age.value < 17) {
-                            const bodyDensity =
-                                1.1533 - 0.0643 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 20) {
-                            const bodyDensity =
-                                1.162 - 0.063 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 30) {
-                            const bodyDensity =
-                                1.1631 - 0.0632 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 40) {
-                            const bodyDensity =
-                                1.1422 - 0.0544 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 50) {
-                            const bodyDensity =
-                                1.162 - 0.07 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else {
-                            const bodyDensity =
-                                1.1715 - 0.0779 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        }
-                    } else if (genderButton.value === "female") {
-                        if (age.value < 17) {
-                            const bodyDensity =
-                                1.1369 - 0.0598 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 20) {
-                            const bodyDensity =
-                                1.1549 - 0.0678 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 30) {
-                            const bodyDensity =
-                                1.1599 - 0.0717 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 40) {
-                            const bodyDensity =
-                                1.1423 - 0.0632 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else if (age.value < 50) {
-                            const bodyDensity =
-                                1.1333 - 0.0612 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        } else {
-                            const bodyDensity =
-                                1.1339 - 0.0645 * (Math.log(total) / Math.log(10));
-                            bodyfat.value = bodyfatFunc(bodyDensity);
-                        }
-                    }
-                    if (
-                        (genderButton.value === "male" && bodyfat.value <= 4) ||
-                        (genderButton.value === "female" && bodyfat.value <= 12)
-                    ) {
-                        classification.value = "Essential Fat";
-                    } else if (
-                        (genderButton.value === "male" && bodyfat.value <= 13) ||
-                        (genderButton.value === "female" && bodyfat.value <= 20)
-                    ) {
-                        classification.value = "Athlete";
-                    } else if (
-                        (genderButton.value === "male" && bodyfat.value <= 17) ||
-                        (genderButton.value === "female" && bodyfat.value <= 24)
-                    ) {
-                        classification.value = "Fitness";
-                    } else if (
-                        (genderButton.value === "male" && bodyfat.value <= 25) ||
-                        (genderButton.value === "female" && bodyfat.value <= 31)
-                    ) {
-                        classification.value = "Acceptable";
-                    } else {
-                        classification.value = "Obese";
-                    }
-                }
+      for (let genderButton of genderButtons) {
+        if (genderButton.checked) {
+          if (genderButton.value === "male") {
+            if (age.value < 17) {
+              const bodyDensity =
+                1.1533 - 0.0643 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 20) {
+              const bodyDensity =
+                1.162 - 0.063 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 30) {
+              const bodyDensity =
+                1.1631 - 0.0632 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 40) {
+              const bodyDensity =
+                1.1422 - 0.0544 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 50) {
+              const bodyDensity =
+                1.162 - 0.07 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else {
+              const bodyDensity =
+                1.1715 - 0.0779 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
             }
-
-            for (let weightButton of weightButtons) {
-                if (weightButton.checked && weightButton.value == "lbs") {
-                    leanMass.value =
-                        (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
-                        " lbs";
-                        weightPopulate.innerText = `${weight.value} lbs`;
-                } else {
-                    leanMass.value =
-                        (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
-                        " kgs";
-                        weightPopulate.innerText = `${weight.value} kgs`;
-                }
+          } else if (genderButton.value === "female") {
+            if (age.value < 17) {
+              const bodyDensity =
+                1.1369 - 0.0598 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 20) {
+              const bodyDensity =
+                1.1549 - 0.0678 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 30) {
+              const bodyDensity =
+                1.1599 - 0.0717 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 40) {
+              const bodyDensity =
+                1.1423 - 0.0632 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else if (age.value < 50) {
+              const bodyDensity =
+                1.1333 - 0.0612 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
+            } else {
+              const bodyDensity =
+                1.1339 - 0.0645 * (Math.log(total) / Math.log(10));
+              bodyfat.value = bodyfatFunc(bodyDensity);
             }
-        } else {
-            alert("Please enter weight");
+          }
+          if (
+            (genderButton.value === "male" && bodyfat.value <= 4) ||
+            (genderButton.value === "female" && bodyfat.value <= 12)
+          ) {
+            classification.value = "Essential Fat";
+          } else if (
+            (genderButton.value === "male" && bodyfat.value <= 13) ||
+            (genderButton.value === "female" && bodyfat.value <= 20)
+          ) {
+            classification.value = "Athlete";
+          } else if (
+            (genderButton.value === "male" && bodyfat.value <= 17) ||
+            (genderButton.value === "female" && bodyfat.value <= 24)
+          ) {
+            classification.value = "Fitness";
+          } else if (
+            (genderButton.value === "male" && bodyfat.value <= 25) ||
+            (genderButton.value === "female" && bodyfat.value <= 31)
+          ) {
+            classification.value = "Acceptable";
+          } else {
+            classification.value = "Obese";
+          }
         }
+      }
+
+      for (let weightButton of weightButtons) {
+        if (weightButton.checked && weightButton.value == "lbs") {
+          leanMass.value =
+            (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
+            " lbs";
+          weightPopulate.innerText = `${weight.value} lbs`;
+        } else {
+          leanMass.value =
+            (weight.value - weight.value * (bodyfat.value / 100)).toFixed(2) +
+            " kgs";
+          weightPopulate.innerText = `${weight.value} kgs`;
+        }
+      }
     } else {
-        alert("Please enter age");
+      alert("Please enter weight");
     }
+  } else {
+    alert("Please enter age");
+  }
 
-    classificationPopulate.innerText = classification.value;
-    bodyfatPopulate.innerText = `${bodyfat.value}%`;
-    leanmasspopulate.innerText = leanMass.value;
-    todayDate.innerText = `${date.getDate()}/${date.getMonth() + 1
-        }/${date.getFullYear()}`;
-    
+  classificationPopulate.innerText = classification.value;
+  bodyfatPopulate.innerText = `${bodyfat.value}%`;
+  leanmasspopulate.innerText = leanMass.value;
+  todayDate.innerText = `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()}`;
 
+  saveBtnDisplay.style.display = "block";
 });
 
 reset.addEventListener("click", () => {
-    leanMass.value = "";
-    classification.value = "";
-    bodyfat.value = "";
-    age.value = "";
-    weight.value = "";
-    biceps.value = "";
-    subscap.value = "";
-    suprailiac.value = "";
-    triceps.value = "";
-    bodyfatPopulate.innerText = "";
-    todayDate.innerText = "";
-    classificationPopulate.innerText = "";
-    leanmasspopulate.innerText = "";
-    weightPopulate.innerText = "";
+  leanMass.value = "";
+  classification.value = "";
+  bodyfat.value = "";
+  age.value = "";
+  weight.value = "";
+  biceps.value = "";
+  subscap.value = "";
+  suprailiac.value = "";
+  triceps.value = "";
+  bodyfatPopulate.innerText = "";
+  todayDate.innerText = "";
+  classificationPopulate.innerText = "";
+  leanmasspopulate.innerText = "";
+  weightPopulate.innerText = "";
 });
