@@ -4,6 +4,8 @@ const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const { isLoggedIn } = require("../middleware");
 
 //Route to register page
@@ -63,5 +65,79 @@ router.get("/logout", (req, res, next) => {
     res.redirect("/login");
   });
 });
+
+// Route handler for edit account page
+router.get("/editAccount/:id", async (req, res) => {
+  const accountId = req.params.id;
+
+  const accountDetails = await User.findOne({ _id: accountId });
+
+  res.render("editAccount", { accountDetails });
+});
+
+router.post("/accountEditForm", catchAsync(async (req, res, next) => {
+    
+      const { userId, username, email, password } = req.body;
+      // const user = new User({ email, username });
+
+      try {
+        const clientCheck = await User.findOne({ _id: userId });
+        if (clientCheck) {
+          await User.findOneAndUpdate(
+            { _id: userId },
+            {
+              $set: {
+                email: email,
+                username: username
+              },
+            }
+          )
+            .then(() => {
+              req.flash("success", "Welcome Back!");
+              res.redirect("/login");
+            })
+            .catch(() => {
+              res.redirect("/login");
+            });
+        }
+      } catch (err) {
+        console.log(err);
+      } 
+  })
+);
+
+
+// router.post("/accountEditForm", async (req, res) => {
+//   const { userId, username, email, password } = req.body;
+
+//   const salt = await bcrypt.genSalt();
+//   const hash = await bcrypt.hash(password, salt);
+
+//   try {
+//     const clientCheck = await User.findOne({ _id: userId });
+//     if (clientCheck) {
+//       await User.findOneAndUpdate(
+//         { _id: userId },
+//         {
+//           $set: {
+//             email: email,
+//             username: username,
+//             hash: hash,
+//             salt: salt,
+//           },
+//         }
+//       )
+//         .then(() => {
+//           req.flash("success", "Welcome Back!");
+//           res.redirect("/login");
+//         })
+//         .catch(() => {
+//           res.redirect("/login");
+//         });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 module.exports = router;
