@@ -21,7 +21,8 @@
 
 Instructions
 
-1. npm install
-2. Dummy login data
-   username: JoeBloggs
-   password: pa55word
+1. Visit https://bodyfat-calulator.onrender.com/
+2. Register to create a new account or use dummy login data:
+Username: JoeBloggs
+Password: pa55word
+3. Click on instructions tab for instructions on how to create new client and calculate bodyfat percentage. 
